@@ -1,0 +1,141 @@
+@startuml arquitetura_backend
+
+package "Backend Project" {
+
+    package "Controllers" #FFD700 {
+        class GenericController {
+            - useCase: GenericUseCase
+            - repository: GenericRepository
+            - hashGenerator: HashGenerator
+            ----
+            + handleRequest(request: RequestType)
+        }
+        note right of GenericController
+            Os controladores são responsáveis por lidar com as requisições HTTP e delegar tarefas para os casos de uso e repositórios. Utilizam decoradores do NestJS (@Controller, @Post, @Body, @UsePipes) e fazem validações com Zod e Pipes personalizados.
+            **Recomendações:**
+            1. Manter os controladores pequenos e focados em orquestrar a lógica.
+            2. Delegar a lógica de negócio para os casos de uso.
+            3. Usar injeção de dependências fornecida pelo NestJS.
+        end note
+    }
+
+    package "Use Cases" #FF4500 {
+        class GenericUseCase {
+            - repository: GenericRepository
+            - hashGenerator: HashGenerator
+            ----
+            + execute(request: RequestType): ResponseType
+        }
+        note right of GenericUseCase
+            Os casos de uso contêm a lógica de negócio e orquestram a interação entre repositórios e serviços. São implementados como classes no padrão Command e manipulam a lógica de negócio principal.
+            **Recomendações:**
+            1. Manter a lógica de negócio encapsulada nos casos de uso.
+            2. Evitar dependências diretas de frameworks dentro da lógica de negócio.
+        end note
+    }
+
+    package "Repositories" #00BFFF {
+        interface GenericRepository {
+            + findByAttribute(attribute: string): EntityType
+            + save(entity: EntityType): void
+        }
+         note left of GenericRepository
+            Os repositórios são responsáveis por interagir com a camada de dados, abstraindo os detalhes de persistência. Utilizam Prisma como ORM e definem métodos de acesso a dados.
+            **Recomendações:**
+            1. Usar interfaces para definir contratos de repositórios.
+            2. Implementar repositórios específicos usando Prisma para acesso a dados.
+            3. Manter os repositórios focados em operações de banco de dados.
+        end note
+        class PrismaRepository implements GenericRepository {
+            + findByAttribute(attribute: string): EntityType
+            + save(entity: EntityType): void
+        }
+        class InMemoryRepository implements GenericRepository {
+            + findByAttribute(attribute: string): EntityType
+            + save(entity: EntityType): void
+        }  
+    }
+
+    package "Services" #32CD32 {
+        class HashGenerator {
+            + hash(data: string): string
+        }
+        class BcryptHashGenerator implements HashGenerator {
+            + hash(data: string): string
+        }
+        class FakeHashGenerator implements HashGenerator {
+            + hash(data: string): string
+            + compare(data: string, hash: string): boolean
+        }
+        note right of HashGenerator
+            A classe HashGenerator é uma abstração para a geração de hashes. Implementações concretas como BcryptHashGenerator são usadas em produção e FakeHashGenerator para testes.
+            **Recomendações:**
+            1. Usar implementações seguras para produção, como bcrypt.
+            2. Manter a lógica de hash separada da lógica de negócio.
+        end note
+    }
+
+    package "Entities" #FFA500 {
+        class Entity {
+            - attribute1: Type1
+            - attribute2: Type2
+            ----
+            + create(data: DataType): EntityType
+        }
+        note right of Entity
+            As entidades representam objetos de domínio com seus atributos e métodos de comportamento. Definem a estrutura de dados e regras de negócio básicas.
+            **Recomendações:**
+            1. Manter as entidades puras e livres de dependências de frameworks.
+            2. Utilizar métodos para encapsular comportamentos relacionados aos dados.
+        end note
+    }
+
+    package "Validation" #FF69B4 {
+        class ZodValidationPipe {
+            + transform(value: any, metadata: ArgumentMetadata): any
+        }
+        note right of ZodValidationPipe
+            O ZodValidationPipe utiliza a biblioteca Zod para validar e transformar dados de entrada nos controladores.
+            **Recomendações:**
+            1. Definir esquemas Zod para cada DTO (Data Transfer Object).
+            2. Usar Pipes personalizados para validações consistentes e reutilizáveis.
+        end note
+    }
+
+    package "Errors" #FF6347 {
+        class UseCaseError {}
+        class EntityAlreadyExistsError extends UseCaseError {
+            + constructor(attribute: string)
+        }
+        note right of EntityAlreadyExistsError
+            As classes de erro são usadas para representar erros específicos em casos de uso.
+            **Recomendações:**
+            1. Definir erros específicos para diferentes falhas de casos de uso.
+            2. Manter a hierarquia de erros clara e documentada.
+        end note
+    }
+
+    package "Decorators" #ADD8E6 {
+        class PublicDecorator {
+            + Public(): void
+        }
+        note right of PublicDecorator
+            O decorator Public é usado para marcar rotas que não requerem autenticação.
+            **Recomendações:**
+            1. Usar decorators para metadados e lógica de autenticação.
+            2. Manter a lógica de autenticação modular e reutilizável.
+        end note
+    }
+
+}
+
+GenericController --> GenericUseCase : "Delegates >"
+GenericUseCase --> GenericRepository : "Uses >"
+GenericUseCase --> HashGenerator : "Uses >"
+GenericRepository --> Entity : "Persists >"
+ZodValidationPipe --> GenericController : "Uses >"
+EntityAlreadyExistsError <|-- UseCaseError
+PublicDecorator --> GenericController : "Uses >"
+GenericUseCase --> EntityAlreadyExistsError : "Throws >"
+
+@enduml

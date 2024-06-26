@@ -33,7 +33,6 @@
     "cjs-module": "^1.5.0",
     "dayjs": "^1.11.11",
     "eslint-plugin-compat": "^4.2.0",
-    "http": "0.0.1-security",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
