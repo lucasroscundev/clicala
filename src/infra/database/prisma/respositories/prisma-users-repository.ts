@@ -3,13 +3,15 @@ import { PrismaService } from '../prisma.service'
 import { PrismaUserMapper } from '../mappers/prisma-user-mapper'
 import { UsersRepository } from '@/domain/forum/application/repositories/users-repository'
 import { User } from '@/domain/forum/enterprise/entities/user'
+import { randomUUID } from 'crypto'
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 
 @Injectable()
 export class PrismaUsersRepository implements UsersRepository {
   constructor(private prisma: PrismaService) {}
 
   async findById(id: string): Promise<User | null> {
-    const user = await this.prisma.client.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         id,
       },
@@ -23,7 +25,7 @@ export class PrismaUsersRepository implements UsersRepository {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    const user = await this.prisma.client.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: {
         email,
       },
@@ -36,22 +38,10 @@ export class PrismaUsersRepository implements UsersRepository {
     return PrismaUserMapper.toDomain(user)
   }
 
-  /*async findManyRecent({ page }: PaginationParams): Promise<Question[]> {
-    const questions = await this.prisma.question.findMany({
-      orderBy: {
-        createdAt: 'desc',
-      },
-      take: 20,
-      skip: (page - 1) * 20,
-    })
-
-    return questions.map(PrismaQuestionMapper.toDomain)
-  }*/
-
   async create(user: User): Promise<void> {
     const data = PrismaUserMapper.toPrisma(user)
 
-    await this.prisma.client.create({
+    await this.prisma.user.create({
       data,
     })
   }
@@ -59,7 +49,7 @@ export class PrismaUsersRepository implements UsersRepository {
   async update(user: User): Promise<void> {
     const data = PrismaUserMapper.toPrisma(user)
 
-    await this.prisma.client.update({
+    await this.prisma.user.update({
       where: {
         id: data.id,
       },
@@ -70,7 +60,7 @@ export class PrismaUsersRepository implements UsersRepository {
   async delete(user: User): Promise<void> {
     const data = PrismaUserMapper.toPrisma(user)
 
-    await this.prisma.client.delete({
+    await this.prisma.user.delete({
       where: {
         id: data.id,
       },

@@ -1,6 +1,6 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { User } from '@/domain/forum/enterprise/entities/user'
-import { Client as PrismaUser, Prisma } from '@prisma/client'
+import { User as PrismaUser, Prisma } from '@prisma/client'
 
 export class PrismaUserMapper {
   static toDomain(raw: PrismaUser): User {
@@ -21,7 +21,7 @@ export class PrismaUserMapper {
     )
   }
 
-  static toPrisma(user: User): Prisma.ClientUncheckedCreateInput {
+  static toPrisma(user: User): Prisma.UserUncheckedCreateInput {
     return {
       id: user.id.toString(),
       email: user.email,
