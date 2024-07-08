@@ -1,6 +1,4 @@
-import { Answer } from '@/domain/forum/enterprise/entities/answer'
-
-export class AnswerPresenter {
+/*export class AnswerPresenter {
   static toHTTP(answer: Answer) {
     return {
       id: answer.id.toString(),
@@ -10,3 +8,4 @@ export class AnswerPresenter {
     }
   }
 }
+*/
