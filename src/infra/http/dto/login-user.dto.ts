@@ -1,8 +1,8 @@
 
 import { ApiProperty } from "@nestjs/swagger"
-import { z } from "zod"
 
 export class LoginUserDTO {
+ 
   @ApiProperty({
     example: 'example@example.com',    
   })

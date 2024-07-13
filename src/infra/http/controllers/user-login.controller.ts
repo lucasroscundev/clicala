@@ -13,7 +13,7 @@ import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger"
 import { LoginUserDTO } from "../dto/login-user.dto"
 
 const loginUserBodySchema = z.object({
-  email: z.string().email(),
+  email: z.string().email().min(1, "email obrigatório"),
   name: z.string(),
   nickname: z.string(),
   picture: z.string(),
