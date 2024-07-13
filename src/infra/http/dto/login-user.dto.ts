@@ -9,17 +9,17 @@ export class LoginUserDTO {
   email: string
 
   @ApiProperty({
-    example: 'John Doe',    
+    example: 'John Doe XXX',    
   })
   name: string
 
   @ApiProperty({
-    example: 'JD',
+    example: 'JayD',
   })
   nickname: string
 
   @ApiProperty({
-    example: 'uma foto de um gato fofo',
+    example: 'uma foto do garfield',
   })
   picture: string
 
@@ -29,7 +29,7 @@ export class LoginUserDTO {
   emailVerified: boolean
 
   @ApiProperty({
-    example: 'John',
+    example: 'John T.',
   })
   givenName: string
 
