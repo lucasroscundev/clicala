@@ -1,0 +1,139 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Clicalá API",
+    "description": "Clicalá API 0.0.1",
+    "contact": {
+      "email": "devteam@clicala.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/LUCASROSCUN/clicala/0.0.1",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "http://localhost:3333/",
+      "description": "Test endpoint"
+    }
+  ],
+  "tags": [
+    {
+      "name": "admins",
+      "description": "Secured Admin-only calls"
+    },
+    {
+      "name": "developers",
+      "description": "Operations available to regular developers"
+    },
+    {
+      "name": "users",
+      "description": "Operation available to all users"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "login user from auth0",
+        "description": "creates a user or updates its info in database",
+        "operationId": "LoginUser",
+        "requestBody": {
+          "description": "Create user or update info",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "user created"
+          },
+          "400": {
+            "description": "invalid input, object invalid"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "required": [
+          "email",
+          "emailVerified",
+          "familyName",
+          "givenName",
+          "isAuthUser",
+          "name",
+          "nickname",
+          "picture"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "d290f1ee-6c54-4b01-90e6-d701748f0851"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "example@example.com"
+          },
+          "name": {
+            "type": "string",
+            "example": "Larry Stravinsky"
+          },
+          "nickname": {
+            "type": "string",
+            "example": "Lastra"
+          },
+          "picture": {
+            "type": "string",
+            "format": "url",
+            "example": "https://www.acme-corp.com"
+          },
+          "emailVerified": {
+            "type": "string",
+            "format": "boolean",
+            "example": "true"
+          },
+          "givenName": {
+            "type": "string",
+            "example": "Larry"
+          },
+          "familyName": {
+            "type": "string",
+            "example": "Stravinsky"
+          },
+          "isAuthUser": {
+            "type": "string",
+            "format": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2016-08-29T09:12:33.001Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2016-08-29T09:12:33.001Z"
+          }
+        },
+        "description": "Schema based on our own Users table"
+      }
+    }
+  }
+}

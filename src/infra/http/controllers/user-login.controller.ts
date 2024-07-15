@@ -9,9 +9,11 @@ import { z } from "zod"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 import { Public } from "@/infra/auth/public"
 import { NestLoginUserUseCase } from "@/infra/representations/nest-user-login-use-case"
+import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger"
+import { LoginUserDTO } from "../dto/login-user.dto"
 
 const loginUserBodySchema = z.object({
-  email: z.string().email(),
+  email: z.string().email().min(1, "email obrigatório"),
   name: z.string(),
   nickname: z.string(),
   picture: z.string(),
@@ -23,6 +25,7 @@ const loginUserBodySchema = z.object({
 
 type LoginUserBodySchema = z.infer<typeof loginUserBodySchema>
 
+@ApiTags("users")
 @Controller("/users")
 @Public()
 export class LoginUserController {
@@ -34,7 +37,8 @@ export class LoginUserController {
   @Post()
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(loginUserBodySchema))
-  async handle(@Body() body: LoginUserBodySchema) {
+  @ApiCreatedResponse({ type: LoginUserDTO })
+  async handle(@Body() body: LoginUserDTO) {
     const {
       email,
       name,
