@@ -36,7 +36,7 @@ export class UserFactory {
   async makePrismaUser(data: Partial<UserProps> = {}): Promise<User> {
     const user = makeUser(data)
 
-    await this.prisma.client.create({
+    await this.prisma.user.create({
       data: PrismaUserMapper.toPrisma(user),
     })
 

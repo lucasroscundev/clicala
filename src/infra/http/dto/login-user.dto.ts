@@ -1,11 +1,19 @@
 
-import { ApiProperty } from "@nestjs/swagger"
+import { ApiProperty, OmitType } from "@nestjs/swagger"
+import { Z } from "vitest/dist/reporters-yx5ZTtEV"
+import { z } from "zod"
 
-export class LoginUserDTO {
- 
+
+export class UserDTO {
+  @ApiProperty({
+    example: '22a18663-9bce-4584-86aa-6cbf5353a8fe',
+  })
+  id: string
+
   @ApiProperty({
     example: 'example@example.com',    
   })
+  
   email: string
 
   @ApiProperty({
@@ -43,8 +51,9 @@ export class LoginUserDTO {
   })
   isAuthUser: boolean
 
-  constructor(email: string, name: string, nickname: string, picture: string, 
-    emailVerified: boolean, givenName: string, familyName: string, isAuthUser: boolean) { 
+  constructor(id: string, email: string, name: string, nickname: string, picture: string, 
+    emailVerified: boolean, givenName: string, familyName: string, isAuthUser: boolean) {
+        this.id = id
         this.name = name
         this.email = email
         this.nickname = nickname
@@ -56,6 +65,5 @@ export class LoginUserDTO {
     }
 }
 
-/*
-export type LoginUserDTOType = z.infer<typeof LoginUserDTO>*/
+export class LoginUserDTO extends OmitType(UserDTO, ['id'] as const) {}
 

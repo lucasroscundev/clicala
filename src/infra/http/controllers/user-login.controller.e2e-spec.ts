@@ -34,12 +34,12 @@ describe('Create user (E2E)', () => {
 
     expect(response.statusCode).toBe(201)
 
-    const userOnDatabase = await prisma.client.findUnique({
+    const userOnDatabase = await prisma.user.findUnique({
       where: {
         email: 'johndoe@example.com',
       },
     })
-
+    console.log(userOnDatabase)
     expect(userOnDatabase).toBeTruthy()
   })
 })

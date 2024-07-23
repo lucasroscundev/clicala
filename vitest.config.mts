@@ -1,6 +1,8 @@
 import swc from 'unplugin-swc'
 import { configDefaults, defineConfig } from 'vitest/config'
 import tsConfigPaths from 'vite-tsconfig-paths'
+import { fileURLToPath, URL } from 'node:url'
+import { resolve } from 'node:path'
 
 export default defineConfig({
   test: {
@@ -16,4 +18,8 @@ export default defineConfig({
       module: { type: 'es6' },
     }),    
   ],
-})
+  resolve: {
+  alias: [{ find: "@", replacement: resolve(__dirname, "./src") }],
+}
+},
+)

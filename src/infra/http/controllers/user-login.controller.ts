@@ -10,7 +10,7 @@ import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 import { Public } from "@/infra/auth/public"
 import { NestLoginUserUseCase } from "@/infra/representations/nest-user-login-use-case"
 import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger"
-import { LoginUserDTO } from "../dto/login-user.dto"
+import { LoginUserDTO, UserDTO } from "../dto/login-user.dto"
 
 const loginUserBodySchema = z.object({
   email: z.string().email().min(1, "email obrigatório"),

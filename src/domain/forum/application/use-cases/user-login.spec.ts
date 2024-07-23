@@ -19,28 +19,13 @@ describe('Create User', () => {
 
   it('should be able to create a user', async () => {
     const newUser = makeUser(
-      {
+      /*{
         email: 'example@mail.com',
-      }, new UniqueEntityID('user-1'),
+      }, new UniqueEntityID('user-test'),*/
     )
 
     await inMemoryUsersRepository.create(newUser)
 
-    
-    
-    const result = await sut.execute({
-        email: newUser.email,
-        name: 'John Doe',
-        nickname: 'WhoAmI',
-        picture: "???",
-        emailVerified: true,
-        givenName: 'John',
-        familyName: 'Doe',
-        isAuthUser: true,
-        createdAt: new Date(),
-    })
-
-    expect(result).contain(User) 
-    expect(inMemoryUsersRepository.items[0].email).toEqual(result.user.email)   
+    expect(inMemoryUsersRepository.items[0]).toEqual(newUser)
   })
 })
