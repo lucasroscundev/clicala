@@ -19,23 +19,110 @@ model User {
   isAuthUser      Boolean
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime? @updatedAt @map("updated_at")
-
-  links Link[]
+  links           Link[]
 
   @@map("users")
 }
 
 model Link {
   id              String  @id @default(uuid())
-  url             String  @unique
-  description     String
-  userId          String  @map("user_id") @unique
-  type            String
-  size            String  
-  createdAt       DateTime  @default(now()) @map("created_at")
-  updatedAt       DateTime? @updatedAt @map("updated_at")
+  type            LinkType
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  userId          String
+  button          ButtonLink?
+  banner          BannerLink?
+  carousel        CarouselLink?
+  card            CardLink?
+  groupCards      GroupCardsLink?
 
-  user            User  @relation(fields: [userId], references: [id])
+  user            User       @relation(fields: [userId], references: [id])
 
   @@map("links")
+}
+
+model ButtonLink {
+  id              String  @id @default(uuid())
+  linkId          String        @unique
+  logo            String
+  label           String
+  color           String
+  size            String
+  urlToRedirect   String
+  link            Link       @relation(fields: [linkId], references: [id])
+
+  @@map("button_links")
+}
+
+model BannerLink {
+  id              String  @id @default(uuid())
+  linkId          String        @unique
+  imageUrl        String
+  urlToRedirect   String
+  size            String
+  link            Link       @relation(fields: [linkId], references: [id])
+
+  @@map("banner_links")
+}
+
+model CarouselLink {
+  id              String  @id @default(uuid())
+  linkId          String        @unique
+  images          CarouselImage[]
+  link            Link       @relation(fields: [linkId], references: [id])
+
+  @@map("carousel_links")
+}
+
+model CarouselImage {
+  id              String  @id @default(uuid())
+  carouselLinkId  String
+  imageUrl        String
+  urlToRedirect   String
+  carouselLink    CarouselLink @relation(fields: [carouselLinkId], references: [id])
+
+  @@map("carousel_images")
+}
+
+model CardLink {
+  id              String  @id @default(uuid())
+  linkId          String        @unique
+  imageUrl        String
+  buttonLabel     String
+  buttonColor     String
+  buttonSize      String
+  buttonUrl       String
+  link            Link       @relation(fields: [linkId], references: [id])
+
+  @@map("card_links")
+}
+
+model GroupCardsLink {
+  id              String  @id @default(uuid())
+  linkId          String        @unique
+  cards           GroupCard[]
+  link            Link       @relation(fields: [linkId], references: [id])
+
+  @@map("group_cards_links")
+}
+
+model GroupCard {
+  id              String  @id @default(uuid())
+  groupCardsLinkId String
+  imageUrl        String
+  buttonLabel     String
+  buttonColor     String
+  buttonSize      String
+  buttonUrl       String
+  groupCardsLink  GroupCardsLink @relation(fields: [groupCardsLinkId], references: [id])
+
+  @@map("group_cards")
+}
+
+enum LinkType {
+  BUTTON
+  BANNER
+  CAROUSEL
+  CARD
+  GROUP_CARDS
 }

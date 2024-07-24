@@ -6,13 +6,10 @@ export class PrismaLinkMapper {
   static toDomain(raw: PrismaLink): Link {
     return Link.create(
       {
-        url: raw.url,
-        description: raw.description,
+        type: raw.type,        
         userId: raw.userId,
-        type: raw.type,
-        size: raw.size,
         createdAt: raw.createdAt,
-        updatedAt: raw.updatedAt,        
+        updatedAt: raw.updatedAt,                
       },
       new UniqueEntityID(raw.id),
     )
@@ -20,12 +17,9 @@ export class PrismaLinkMapper {
 
   static toPrisma(link: Link): Prisma.LinkUncheckedCreateInput {
     return {
-      id: link.id.toString(),
-      url: link.url,
-      description: link.description,
-      userId: link.userId,
-      type: link.type,
-      size: link.size,
+      id: link.id.toString(),      
+      userId: link.userId.toString(),
+      type: link.type.toString(),      
       createdAt: link.createdAt,
       updatedAt: link.updatedAt,            
     }
