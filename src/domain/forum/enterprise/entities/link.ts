@@ -1,6 +1,7 @@
 import { Entity } from "@/core/entities/entity"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Optional } from "@/core/types/optional"
+import { LinkType } from "@prisma/client"
 
 export interface LinkProps {
     type: LinkType
@@ -24,7 +25,7 @@ export class Link extends Entity<LinkProps> {
         return this.props.type
     }
 
-    set type(type: string) {
+    set type(type: LinkType) {
         this.props.type = type
         this.updated()
     }

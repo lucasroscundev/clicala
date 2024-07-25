@@ -8,33 +8,15 @@ import { PrismaLinkMapper } from '../mappers/prisma-link-mapper'
 export class PrismaLinksRepository implements LinksRepository {
   constructor(private prisma: PrismaService) {}
     
-  async findByUserId(userId: string): Promise<Link | null> {
-    const link = await this.prisma.link.findFirst({
+  async findByUserId(userId: string): Promise<Link[]> {
+    const links = await this.prisma.link.findMany({
       where: {
         userId,
       },
     })
 
-    if (!link) {
-      return null
-    }
-
-      return PrismaLinkMapper.toDomain(link)
-    }
-
-    async findByUrl(url: string): Promise<Link | null> {
-      const link = await this.prisma.link.findUnique({
-        where: {
-          url,
-        },
-      })
-  
-      if (!link) {
-        return null
-      }
-  
-      return PrismaLinkMapper.toDomain(link)  
-    }
+      return links.map(PrismaLinkMapper.toDomain)
+  }
 
   async findById(id: string): Promise<Link | null> {
     const link = await this.prisma.link.findUnique({

@@ -1,4 +1,6 @@
 
+import { UniqueEntityID } from "@/core/entities/unique-entity-id"
+import { User } from "@/domain/forum/enterprise/entities/user"
 import { ApiProperty, OmitType } from "@nestjs/swagger"
 import { Z } from "vitest/dist/reporters-yx5ZTtEV"
 import { z } from "zod"
@@ -8,19 +10,18 @@ export class UserDTO {
   @ApiProperty({
     example: '22a18663-9bce-4584-86aa-6cbf5353a8fe',
   })
-  id: string
+  id: UniqueEntityID
 
   @ApiProperty({
-    example: 'example@example.com',    
-  })
-  
-  email: string
-
-  @ApiProperty({
-    example: 'John Doe XXX',    
+  example: 'John Doe XXX',    
   })
   name: string
-
+  
+  @ApiProperty({
+    example: 'example@example.com',    
+  })  
+  email: string
+  
   @ApiProperty({
     example: 'JayD',
   })
@@ -51,19 +52,27 @@ export class UserDTO {
   })
   isAuthUser: boolean
 
-  constructor(id: string, email: string, name: string, nickname: string, picture: string, 
-    emailVerified: boolean, givenName: string, familyName: string, isAuthUser: boolean) {
-        this.id = id
-        this.name = name
-        this.email = email
-        this.nickname = nickname
-        this.picture = picture
-        this.emailVerified = emailVerified
-        this.givenName = givenName
-        this.familyName = familyName
-        this.isAuthUser = isAuthUser
-    }
+  @ApiProperty({
+    example: '2012-04-23T18:25:43.511Z',
+  })
+  createdAt: Date
+
+  constructor(id: UniqueEntityID, email: string, name: string, nickname: string, picture: string, 
+    emailVerified: boolean, givenName: string, familyName: string, isAuthUser: boolean, createdAt: Date) {
+        this.id = id,
+        this.name = name,
+        this.email = email,
+        this.nickname = nickname,
+        this.picture = picture,
+        this.emailVerified = emailVerified,
+        this.givenName = givenName,
+        this.familyName = familyName,
+        this.isAuthUser = isAuthUser,
+        this.createdAt = createdAt
+  }      
+        
+        
+    
 }
 
 export class LoginUserDTO extends OmitType(UserDTO, ['id'] as const) {}
-

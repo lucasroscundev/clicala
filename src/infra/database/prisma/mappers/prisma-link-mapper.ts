@@ -19,9 +19,9 @@ export class PrismaLinkMapper {
     return {
       id: link.id.toString(),      
       userId: link.userId.toString(),
-      type: link.type.toString(),      
+      type: link.type,      
       createdAt: link.createdAt,
-      updatedAt: link.updatedAt,            
+      updatedAt: link.updatedAt?.toDateString(),            
     }
   }
 }

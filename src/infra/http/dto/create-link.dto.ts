@@ -1,4 +1,5 @@
 
+import { LinkType } from "@prisma/client"
 import { ApiProperty, OmitType } from "@nestjs/swagger"
 import { Z } from "vitest/dist/reporters-yx5ZTtEV"
 import { z } from "zod"
@@ -11,40 +12,35 @@ export class LinkDTO {
   id: string
 
   @ApiProperty({
-    example: 'https://br.freepik.com/fotos-gratis/flores-roxas-em-um-vaso_40070947.htm',    
-  })
-  
-  url: string
-
-  @ApiProperty({
-    example: 'John Doe XXX',    
-  })
-  description: string
-
-  @ApiProperty({
     example: '23k19563-9gta-1934-75fd-6cbf9734a8pn',
   })
   userId: string
 
   @ApiProperty({
-    example: 'button',
+    example: 'BUTTON',
   })
-  type: string
+  type: LinkType
 
   @ApiProperty({
-    example: 'small',
+    example: '2012-04-23T18:25:43.511Z',
   })
-  size: string  
+  createdAt: Date
 
-  constructor(id: string, url: string, description: string, userId: string, type: string, size: string)  {
+  @ApiProperty({
+    example: '2012-04-23T18:25:43.511Z',
+  })
+  updatedAt: Date
+
+  constructor(id: string, url: string, description: string, userId: string, type: LinkType, createdAt: Date, updatedAt: Date)  {
         this.id = id
-        this.url = url
-        this.description = description
         this.userId = userId
         this.type = type
-        this.size = size        
+        this.createdAt = createdAt
+        this.updatedAt = updatedAt     
     }
 }
 
-export class CreateLinkDTO extends OmitType(LinkDTO, ['id'] as const) {}
+export class CreateLinkDTO extends OmitType(LinkDTO, ['id', 'createdAt','updatedAt', 'userId'] as const) {}
+
+export class NewLinkDTO extends OmitType(LinkDTO, ['id', 'updatedAt'] as const) {}
 

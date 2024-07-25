@@ -1,25 +1,22 @@
 import { HashGenerator } from '../cryptography/hash-generator'
 import { Link } from '../../enterprise/entities/link'
 import { LinksRepository } from '../repositories/links-repository'
-import { link } from 'fs'
 import { Either, left, right } from '@/core/either'
 import { LinkAlreadyExistsError } from './errors/link-already-exists-error'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { error } from 'console'
+import { LinkType } from '@prisma/client'
+import { NewLinkDTO } from '@/infra/http/dto/create-link.dto'
 
 interface CreateLinkUseCaseRequest {
-    url: string
-    description: string
     userId: string
-    type: string
-    size: string 
+    type: LinkType    
     createdAt: Date
 }
 
 export type CreateLinkUseCaseResponse =  Either<
   LinkAlreadyExistsError,
   {
-    link: Link
+    link: NewLinkDTO
   } 
 >
 
@@ -30,11 +27,8 @@ export class CreateLinkUseCase {
   ) {}
 
   async execute({
-    url,
-    description,
     userId,
     type,
-    size,
     createdAt,
   }: CreateLinkUseCaseRequest): Promise<CreateLinkUseCaseResponse> {
     //Search for user in links, then search for the same URL
@@ -45,11 +39,8 @@ export class CreateLinkUseCase {
         await this.linksrepository.findByUrl(url)*/
    
     const link = Link.create({
-    url,
-    description,
-    userId,
     type,
-    size,
+    userId,    
     createdAt,
     })
 

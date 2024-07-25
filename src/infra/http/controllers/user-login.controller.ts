@@ -37,7 +37,7 @@ export class LoginUserController {
   @Post()
   @HttpCode(201)
   @UsePipes(new ZodValidationPipe(loginUserBodySchema))
-  @ApiCreatedResponse({ type: LoginUserDTO })
+  @ApiCreatedResponse({ type: UserDTO })
   async handle(@Body() body: LoginUserDTO) {
     const {
       email,

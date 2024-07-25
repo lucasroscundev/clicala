@@ -1,6 +1,7 @@
 import { HashGenerator } from '../cryptography/hash-generator'
 import { UsersRepository } from '../repositories/users-repository'
 import { User } from '../../enterprise/entities/user'
+import { LoginUserDTO } from '@/infra/http/dto/login-user.dto'
 
 interface LoginUserUseCaseRequest {
     email: string
@@ -33,9 +34,8 @@ export class LoginUserUseCase {
     emailVerified,
     givenName,
     familyName,
-    isAuthUser,
-    createdAt,    
-  }: LoginUserUseCaseRequest): Promise<LoginUserUseCaseResponse> {
+    isAuthUser,    
+  }: LoginUserDTO): Promise<LoginUserUseCaseResponse> {
     const userAlreadyExists =
        await this.usersRepository.findByEmail(email)
 
@@ -47,9 +47,7 @@ export class LoginUserUseCase {
     emailVerified,
     givenName,
     familyName,
-    isAuthUser,
-    createdAt,       
-     
+    isAuthUser,     
     }, userAlreadyExists?.id)
 
     
