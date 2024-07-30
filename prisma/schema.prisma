@@ -76,7 +76,7 @@ model CarouselLink {
 
 model CarouselImage {
   id              String  @id @default(uuid())
-  carouselLinkId  String
+  carouselLinkId  String  @unique
   imageUrl        String
   urlToRedirect   String
   carouselLink    CarouselLink @relation(fields: [carouselLinkId], references: [id])
