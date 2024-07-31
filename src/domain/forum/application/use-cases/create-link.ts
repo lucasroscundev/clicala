@@ -6,6 +6,11 @@ import { LinkAlreadyExistsError } from './errors/link-already-exists-error'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { LinkType } from '@prisma/client'
 import { NewLinkDTO } from '@/infra/http/dto/create-link.dto'
+import { BannerLinksRepository } from '../repositories/banner-links-repository'
+import { ButtonLinksRepository } from '../repositories/button-links-repository'
+import { CarouselLinksRepository } from '../repositories/carousel-links-repository'
+import { CardLinksRepository } from '../repositories/card-links-repository'
+import { GroupCardsLinksRepository } from '../repositories/group-cards-links-repository'
 
 interface CreateLinkUseCaseRequest {
     userId: string
@@ -23,7 +28,12 @@ export type CreateLinkUseCaseResponse =  Either<
 
 export class CreateLinkUseCase {
   constructor(
-    private linksrepository: LinksRepository,
+    private linksRepository: LinksRepository,
+    /*private bannerLinksRepository: BannerLinksRepository,
+    private buttonLinksRepository: ButtonLinksRepository,
+    private carouselLinksRepository: CarouselLinksRepository,
+    private cardLinksRepository: CardLinksRepository,
+    private groupCardsLinksRepository: GroupCardsLinksRepository,*/
   ) {}
 
   async execute({
@@ -44,12 +54,13 @@ export class CreateLinkUseCase {
     createdAt,
     })
 
+ 
     /*if(userAlreadyHasALink && urlAlreadyExists) {
       return left(new LinkAlreadyExistsError())
       console.error(link)      
     }*/
 
-    await this.linksrepository.create(link)  
+    await this.linksRepository.create(link)  
     
     return right({
       link,
