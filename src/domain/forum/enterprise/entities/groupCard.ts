@@ -2,8 +2,9 @@ import { Entity } from "@/core/entities/entity";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
 
 export interface GroupCardProps {
-    groupCardsLinkId: string
+    color: string
     imageUrl: string
+    buttonLogo: string
     buttonLabel: string
     buttonColor: string
     buttonSize: string
@@ -11,52 +12,60 @@ export interface GroupCardProps {
 }
 
 export class GroupCard extends Entity<GroupCardProps> {
-    get groupCardsLinkId() {
-        return this.groupCardsLinkId
+    get color() {
+        return this.props.color
     }
 
-    set groupCardsLinkId(groupCardsLinkId: string) {
-        this.groupCardsLinkId = groupCardsLinkId
+    set color(color: string) {
+        this.props.color = color
     }
 
     get imageUrl() {
-        return this.imageUrl
+        return this.props.imageUrl
     }
 
     set imageUrl(imageUrl: string) {
-        this.imageUrl = imageUrl
+        this.props.imageUrl = imageUrl
+    }
+
+    get buttonLogo() {
+        return this.props.buttonLogo
+    }
+
+    set buttonLogo(buttonLogo: string) {
+        this.props.buttonLogo = buttonLogo
     }
     
     get buttonLabel() {
-        return this.buttonLabel
+        return this.props.buttonLabel
     }
 
     set buttonLabel(buttonLabel: string) {
-        this.buttonLabel = buttonLabel
+        this.props.buttonLabel = buttonLabel
     }
 
-        get buttonColor() {
-        return this.buttonColor
+    get buttonColor() {
+        return this.props.buttonColor
     }
 
     set buttonColor(buttonColor: string) {
-        this.buttonColor = buttonColor
+        this.props.buttonColor = buttonColor
     }
 
     get buttonSize() {
-        return this.buttonSize
+        return this.props.buttonSize
     }
 
     set buttonSize(buttonSize: string) {
-        this.buttonSize = buttonSize
+        this.props.buttonSize = buttonSize
     }
 
     get buttonUrl() {
-        return this.buttonUrl
+        return this.props.buttonUrl
     }
 
     set buttonUrl(buttonUrl: string) {
-        this.buttonUrl = buttonUrl
+        this.props.buttonUrl = buttonUrl
     }
 
     static create(

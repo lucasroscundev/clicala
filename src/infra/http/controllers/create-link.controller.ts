@@ -10,9 +10,7 @@ import { z } from "zod"
 import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 import { Public } from "@/infra/auth/public"
 import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger"
-import { CreateLinkUseCase } from "@/domain/forum/application/use-cases/create-link"
 import { CreateLinkDTO, NewLinkDTO } from "../dto/create-link.dto"
-import { NestCreateLinkUseCase } from "@/infra/representations/nest-create-link-use-case"
 
 const createlinkBodySchema = z.object({
   type: z.string(),  

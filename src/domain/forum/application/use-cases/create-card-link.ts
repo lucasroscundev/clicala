@@ -6,8 +6,8 @@ import { CardLink } from '../../enterprise/entities/cardLink'
 import { CardLinksRepository } from '../repositories/card-links-repository'
 
 interface CreateCardLinkUseCaseRequest {
-  linkId: string
   imageUrl: string
+  buttonLogo: string
   buttonLabel: string
   buttonColor: string
   buttonSize: string
@@ -28,8 +28,8 @@ export class CreateCardLinkUseCase {
   ) {}
 
   async execute({
-    linkId,
     imageUrl,
+    buttonLogo,
     buttonLabel,
     buttonColor,
     buttonSize,
@@ -37,8 +37,8 @@ export class CreateCardLinkUseCase {
   }: CreateCardLinkUseCaseRequest): Promise<CreateCardLinkUseCaseResponse> {
    
     const cardLink = CardLink.create({
-    linkId,
     imageUrl,
+    buttonLogo,
     buttonLabel,
     buttonColor,
     buttonSize,

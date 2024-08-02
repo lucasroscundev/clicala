@@ -2,34 +2,26 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Entity } from "@/core/entities/entity"
 
 export interface CarouselImageProps {
-  carouselLinkId: string
   imageUrl: string
   urlToRedirect: string
 }
 
 export class CarouselImage extends Entity<CarouselImageProps> {
-    get carouselLinkId() {
-      return this.carouselLinkId
-    }
-    
-    set carouselLinkId(carouselLinkId: string) {
-        this.carouselLinkId = carouselLinkId
-    }
 
     get imageUrl() {
-    return this.imageUrl
+    return this.props.imageUrl
     }
   
     set imageUrl(imageUrl: string) {
-      this.imageUrl = imageUrl
+      this.props.imageUrl = imageUrl
     }
 
     get urlToRedirect() {
-    return this.urlToRedirect
+    return this.props.urlToRedirect
     }
   
     set urlToRedirect(urlToRedirect: string) {
-      this.urlToRedirect = urlToRedirect
+      this.props.urlToRedirect = urlToRedirect
     }
   
     static create(

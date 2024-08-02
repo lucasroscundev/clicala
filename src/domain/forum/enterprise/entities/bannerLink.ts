@@ -2,43 +2,35 @@ import { Entity } from "@/core/entities/entity"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 
 export interface BannerLinkProps {
-  linkId: string 
   imageUrl: string
   urlToRedirect: string
   size: string
 }
 
 export class BannerLink extends Entity<BannerLinkProps> {
-  get linkId() {
-    return this.linkId
-  }
-
-  set linkId(linkId: string){
-    this.linkId = linkId
-  }
-
+  
   get imageUrl() {
-    return this.imageUrl
+    return this.props.imageUrl
   }
 
   set imageUrl(imageUrl: string) {
-    this.imageUrl = imageUrl
+    this.props.imageUrl = imageUrl
   }
 
   get urlToRedirect() {
-    return this.urlToRedirect
+    return this.props.urlToRedirect
   }
 
   set urlToRedirect(urlToRedirect: string) {
-    this.urlToRedirect = urlToRedirect
+    this.props.urlToRedirect = urlToRedirect
   }
 
   get size() {
-    return this.size
+    return this.props.size
   }
 
   set size(size: string) {
-    this.size = size
+    this.props.size = size
   }
 
   static create(

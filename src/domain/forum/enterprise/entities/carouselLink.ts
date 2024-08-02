@@ -2,16 +2,25 @@ import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { Entity } from "@/core/entities/entity"
 
 export interface CarouselLinkProps {
-    linkId: string
+    color: string
+    images: string
 }
 
 export class CarouselLink extends Entity<CarouselLinkProps> {
-    get linkId() {
-      return this.linkId
+    get color() {
+      return this.props.color
     }
     
-    set linkId(linkId: string) {
-        this.linkId = linkId
+    set color(color: string) {
+        this.props.color = color
+    }
+
+    get images() {
+      return this.props.images
+    }
+    
+    set images(images: string) {
+        this.props.images = images
     }
 
     static create(
@@ -20,6 +29,7 @@ export class CarouselLink extends Entity<CarouselLinkProps> {
     ) {
         const carouselLink = new CarouselLink({
             ...props,
+            images: props.images ?? "",
 
         }, id)
         return carouselLink

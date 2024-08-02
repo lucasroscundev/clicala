@@ -1,12 +1,12 @@
 import { HashGenerator } from '../cryptography/hash-generator'
 import { Either, left, right } from '@/core/either'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { LinkType } from '@prisma/client'
 import { CarouselLink } from '../../enterprise/entities/carouselLink'
 import { CarouselLinksRepository } from '../repositories/carousel-links-repository'
 
 interface CreateCarouselLinkUseCaseRequest {
-  linkId: string 
+    color: string
+    images: string
 }
 
 export type CreateCarouselLinkUseCaseResponse =  Either<
@@ -23,11 +23,13 @@ export class CreateCarouselLinkUseCase {
   ) {}
 
   async execute({
-    linkId,
+    color,
+    images,
   }: CreateCarouselLinkUseCaseRequest): Promise<CreateCarouselLinkUseCaseResponse> {
    
     const carouselLink = CarouselLink.create({
-    linkId, 
+    color,
+    images, 
     })
 
     await this.carouselLinksRepository.create(carouselLink)  

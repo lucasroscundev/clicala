@@ -6,7 +6,6 @@ import { BannerLink } from '../../enterprise/entities/bannerLink'
 import { BannerLinksRepository } from '../repositories/banner-links-repository'
 
 interface CreateBannerLinkUseCaseRequest {
-  linkId: string 
   imageUrl: string
   urlToRedirect: string
   size: string
@@ -26,14 +25,12 @@ export class CreateBannerLinkUseCase {
   ) {}
 
   async execute({
-    linkId,
     imageUrl,
     urlToRedirect,
     size,
   }: CreateBannerLinkUseCaseRequest): Promise<CreateBannerLinkUseCaseResponse> {
    
     const bannerLink = BannerLink.create({
-    linkId,
     imageUrl,
     urlToRedirect,
     size,

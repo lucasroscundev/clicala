@@ -19,7 +19,7 @@ services:
     #command: pnpm run start:dev
 
   postgres:
-    container_name: clica-la_db-pg2
+    container_name: clica-la_db-pg
     image: postgres
     ports:
       - '5432:5432'

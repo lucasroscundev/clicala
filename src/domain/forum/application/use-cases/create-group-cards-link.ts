@@ -1,9 +1,9 @@
 import { HashGenerator } from '../cryptography/hash-generator'
 import { Either, left, right } from '@/core/either'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { LinkType } from '@prisma/client'
 import { CarouselLink } from '../../enterprise/entities/carouselLink'
-import { CarouselLinksRepository } from '../repositories/carousel-links-repository'
+import { GroupCardsLink } from '../../enterprise/entities/groupCardsLink'
+import { GroupCardsLinksRepository } from '../repositories/group-cards-links-repository'
 
 interface CreateGroupCardsLinkLinkUseCaseRequest {
   linkId: string 
@@ -12,28 +12,28 @@ interface CreateGroupCardsLinkLinkUseCaseRequest {
 export type CreateGroupCardsLinkLinkUseCaseResponse =  Either<
   null,
   {
-    carouselLink: CarouselLink
+    groupCardsLink: GroupCardsLink
   } 
 >
 
 
 export class CreateGroupCardsLinkLinkUseCase {
   constructor(
-    private carouselLinksRepository: CarouselLinksRepository,
+    private groupCardsLinkRepository: GroupCardsLinksRepository,
   ) {}
 
   async execute({
     linkId,
   }: CreateGroupCardsLinkLinkUseCaseRequest): Promise<CreateGroupCardsLinkLinkUseCaseResponse> {
    
-    const carouselLink = CarouselLink.create({
+    const groupCardsLink = GroupCardsLink.create({
     linkId, 
     })
 
-    await this.carouselLinksRepository.create(carouselLink)  
+    await this.groupCardsLinkRepository.create(groupCardsLink)  
     
     return right({
-      carouselLink,
+      groupCardsLink,
     })
   
   }

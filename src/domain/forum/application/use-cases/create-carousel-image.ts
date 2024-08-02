@@ -6,7 +6,6 @@ import { CarouselImage } from '../../enterprise/entities/carouselImage'
 import { CarouselImagesRepository } from '../repositories/carousel-images-repository'
 
 interface CreateCarouselImageLinkUseCaseRequest {
-  carouselLinkId: string
   imageUrl: string
   urlToRedirect: string
 }
@@ -25,13 +24,11 @@ export class CreateCarouselImageLinkUseCase {
   ) {}
 
   async execute({
-    carouselLinkId,
     imageUrl,
     urlToRedirect,
   }: CreateCarouselImageLinkUseCaseRequest): Promise<CreateCarouselImageLinkUseCaseResponse> {
    
     const carouselImage = CarouselImage.create({
-    carouselLinkId,
     imageUrl,
     urlToRedirect, 
     })

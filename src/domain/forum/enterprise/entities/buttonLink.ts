@@ -2,7 +2,6 @@ import { Entity } from "@/core/entities/entity"
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 
 export interface ButtonLinkProps {
-  linkId: string
   logo: string
   label: string
   color: string
@@ -11,52 +10,45 @@ export interface ButtonLinkProps {
 }
 
 export class ButtonLink extends Entity<ButtonLinkProps> {
-  get linkId() {
-    return this.linkId
-  }
-
-  set linkId(linkId: string) {
-    this.linkId = linkId
-  }
 
   get logo() {
-    return this.logo
+    return this.props.logo
   }
 
   set logo(logo: string) {
-    this.logo = logo
+    this.props.logo = logo
   }
 
   get label() {
-    return this.label
+    return this.props.label
   }
 
   set label(label: string) {
-    this.label = label
+    this.props.label = label
   }
 
   get color() {
-    return this.color
+    return this.props.color
   }
 
   set color(color: string) {
-    this.color = color
+    this.props.color = color
   }
 
   get size() {
-    return this.size
+    return this.props.size
   }
 
   set size(size: string) {
-    this.size = size
+    this.props.size = size
   }
 
-    get urlToRedirect() {
-    return this.urlToRedirect
+  get urlToRedirect() {
+    return this.props.urlToRedirect
   }
 
   set urlToRedirect(urlToRedirect: string) {
-    this.urlToRedirect = urlToRedirect
+    this.props.urlToRedirect = urlToRedirect
   }
 
   static create(
