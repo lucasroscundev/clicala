@@ -9,7 +9,7 @@ import { CreateLinkDTO, NewLinkDTO, UpdateLinkDTO } from '../dto/link.dto';
 @Injectable()
 export class LinksService {
   constructor(
-    @InjectModel(LinkSchema.) private readonly LinkModel: Model<LinkDocument>,
+    @InjectModel(Link.name) private readonly LinkModel: Model<Link>,
   ) {}
 
   async create(createLinkDto: CreateLinkDTO): Promise<NewLinkDTO> {
@@ -17,8 +17,8 @@ export class LinksService {
     return Link.save();
   }
 
-  async findAll(): Promise<LinkDocument[]> {
-    return this.LinkModel.find();
+  async findAll(): Promise<Link[]> {
+    return this.LinkModel.find().exec();
   }
 
   findOne(id: string) {

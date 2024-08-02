@@ -1,6 +1,6 @@
 
 import { UniqueEntityID } from "@/core/entities/unique-entity-id"
-import { LinkType, GroupCards, BannerDocument, ButtonDocument, CardLinkDocument } from "@/infra/database/mongodb/schemas/links-schema"
+import { LinkType, GroupCards, BannerDocument, ButtonDocument, CardLinkDocument, CarouselImageDocument, CarouselDocument } from "@/infra/database/mongodb/schemas/links-schema"
 import { ApiProperty, OmitType, PartialType } from "@nestjs/swagger"
 import {} from 'class-validator'
 import { Types } from 'mongoose'
@@ -16,6 +16,11 @@ export class LinkDTO {
   example: 'BUTTON',
   })
   type: LinkType
+
+  @ApiProperty({
+  example: '22a18663-9bce-4584-86aa-6cbf5353a8fe',
+  })
+  userId: UniqueEntityID
   
   @ApiProperty({
     example: 'path to Facebook Logo',
@@ -50,11 +55,6 @@ export class LinkDTO {
   @ApiProperty({
    example: {}
   })
-  section?: GroupCards;
-
-  @ApiProperty({
-   example: {}
-  })
     banner?: BannerDocument;
 
   @ApiProperty({
@@ -65,7 +65,22 @@ export class LinkDTO {
   @ApiProperty({
    example: {}
   })
-  card?: CardLinkDocument;
+  cards?: CardLinkDocument[];
+
+  @ApiProperty({
+    example: {}
+  })
+    groupCards?: GroupCards; 
+
+  @ApiProperty({
+    example: {}
+  })  
+    carousel?: CarouselDocument; 
+
+   @ApiProperty({
+   example: {}
+  })
+  images?: CarouselImageDocument[];
 
   @ApiProperty({
     example: '2012-04-23T18:25:43.511Z',
@@ -79,11 +94,15 @@ export class LinkDTO {
 
   
   constructor(_id: UniqueEntityID, type: LinkType, logo: string, label: string, color: string, 
-    size: string, urlToRedirect: string, imageUrl: string, url: string, description: string, userId: string, type: LinkType, createdAt: Date, updatedAt: Date)  {
-        this.id = _id
+    size: string, urlToRedirect: string, imageUrl: string, url: string, description: string, userId: UniqueEntityID, createdAt: Date, updatedAt: Date)  {
+        this.id = _id ?? new UniqueEntityID
         this.type = type
         this.userId = userId
-        this.type = type
+        this.logo
+        this.label
+        this.color
+        this.size
+        this.urlToRedirect
         this.createdAt = createdAt
         this.updatedAt = updatedAt     
     }

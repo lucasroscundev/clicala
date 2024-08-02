@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document, Types } from 'mongoose';
+import mongoose, { Document, HydratedDocument, Types } from 'mongoose';
 import { Entity } from '@/core/entities/entity';
+import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 
 enum LinkType {
   BUTTON = 'button',
@@ -26,6 +27,12 @@ class BannerSchema {
 
   @Prop({required: true})
   size: string
+
+  constructor( imageUrl: string, urlToRedirect: string, size: string ) {
+    this.imageUrl = imageUrl
+    this.urlToRedirect = urlToRedirect
+    this.size = size
+  }
 }
 
 
@@ -47,6 +54,16 @@ class ButtonSchema {
 
   @Prop({ required: true })
   urlToRedirect: string;
+
+  constructor(logo: string, label: string, color: string,
+    size: string, urlToRedirect: string
+  ){
+    this.logo = logo
+    this.label = label
+    this.color = color
+    this.size = size
+    this.urlToRedirect = urlToRedirect
+  }
 }
 
 export type CardLinkDocument = { type: CardLinkSchema}
@@ -58,6 +75,11 @@ class CardLinkSchema {
 
   @Prop({ type: ButtonSchema, required: true })
   button: ButtonSchema;
+
+  constructor(imageUrl: string, button: ButtonSchema) {
+    this.imageUrl = imageUrl
+    this.button = button
+  }
 }
 
 export type CarouselImageDocument = { type: CarouselImageSchema }
@@ -69,6 +91,11 @@ class CarouselImageSchema {
 
   @Prop({ required: true })
   urlToRedirect: string;
+
+  constructor(imageUrl: string, urlToRedirect: string) {
+    this.imageUrl = imageUrl
+    this.urlToRedirect = urlToRedirect
+  }
 }
 
 export type CarouselDocument = { type: CarouselSchema }
@@ -79,7 +106,12 @@ class CarouselSchema {
 color: string;
 
 @Prop({ type: [CarouselImageSchema], required: false })
-images?: Types.DocumentArray<CarouselImageSchema>;    
+images?: Types.DocumentArray<CarouselImageSchema>;
+
+constructor(color: string, images: Types.DocumentArray<CarouselImageSchema>) {
+  this.color = color
+  this.images = images
+}
 }
 
 export type GroupCards  = { type: GroupCardsSchema }
@@ -93,17 +125,20 @@ color: string;
 cards?: Types.DocumentArray<CardLinkSchema>;
 }
 
-export type LinkDocument = { type: LinkSchema }
+export type LinkDocument = HydratedDocument<Link>;// { type: Link }
 
 @Schema({
   timestamps: { createdAt: 'created', updatedAt: 'updated' },
 })
-class LinkSchema extends Document implements BaseLink {
+export class Link extends Document implements BaseLink {
   @Prop()
   _id: string
 
   @Prop({ required: true, enum: LinkType })
   type: LinkType;
+
+  @Prop()
+  userId: string;
 
   @Prop()
   logo?: string;
@@ -141,21 +176,41 @@ class LinkSchema extends Document implements BaseLink {
   @Prop({ type: CarouselSchema, required: false })
   carousel?: CarouselDocument; 
 
+  @Prop()
+  createdAt: Date;
+
+  @Prop()
+  updatedAt?: Date;
+  
+  constructor(_id: string, type: LinkType, userId: string) {
+    super()    
+    this._id = _id ?? new UniqueEntityID()
+    this.type = type
+    this.userId = userId
+    this.createdAt = new Date()
+  };
+
 }
 
-const LinkSchemaFactory = SchemaFactory.createForClass(LinkSchema);
+export const LinkSchema = SchemaFactory.createForClass(Link);
 
 @Schema({ collection: 'users', timestamps: true })
 class UserSchema extends Document {
   @Prop({ required: true, unique: true })
   id: string;
 
-  @Prop({ type: [LinkSchema], required: true })
-  links: Types.DocumentArray<LinkSchema>;
+  @Prop({ type: [Link], required: true })
+  links: Types.DocumentArray<Link>;
+
+  constructor(id: string, links: Types.DocumentArray<Link>) {
+    super()
+    this.id = (new UniqueEntityID).toString()
+    this.links = links
+  }
 }
 
 const UserSchemaFactory = SchemaFactory.createForClass(UserSchema);
 
 // Export schemas and types
-export { LinkType, LinkSchemaFactory as LinkSchema, UserSchemaFactory as UserSchema };
-export const LinkModel =  mongoose.model('Link', LinkSchemaFactory)
+export { LinkType, UserSchemaFactory as UserSchema };
+export const LinkModel =  mongoose.model('Link', LinkSchema)

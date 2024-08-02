@@ -33,7 +33,10 @@ services:
 
   mongo:
     environment:
-      MONGO_URI: 'mongodb://mongo:27017/nest'
+      MONGODB_URI: 'mongodb://mongo:27017/nest'
+      MONGODB_NAME: mongodb_database
+      MONGODB_USER: mongodb_user
+      MONGODB_PASS: mongo_docker
     container_name: mongo
     image: mongo:latest
     ports:

@@ -1,7 +1,7 @@
 import { HashGenerator } from '../cryptography/hash-generator'
 import { Either, left, right } from '@/core/either'
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
-import { LinkType } from '@prisma/client'
+import { LinkType } from '@/infra/database/mongodb/schemas/links-schema'
 import { CardLink } from '../../enterprise/entities/cardLink'
 import { CardLinksRepository } from '../repositories/card-links-repository'
 

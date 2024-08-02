@@ -5,6 +5,10 @@ export const envSchema = z.object({
   JWT_PRIVATE_KEY: z.string(),
   JWT_PUBLIC_KEY: z.string(),
   PORT: z.coerce.number().optional().default(3333),
+  MONGODB_URI: z.string().url(),
+  MONGODB_NAME: z.string(),
+  MONGODB_USER: z.string(),
+  MONGODB_PASS: z.string(),
 })
 
 export type Env = z.infer<typeof envSchema>
