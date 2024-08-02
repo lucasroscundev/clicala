@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LinkModule } from './mongodb/modules/link.module';
+import { LinksService } from './mongodb/service/link-service';
+import { LinkModel } from './mongodb/schemas/links-schema';
 
 @Module({
   imports: [
@@ -24,7 +26,9 @@ import { LinkModule } from './mongodb/modules/link.module';
         };
       },
     }),
-    LinkModule,
+    LinkModule,    
   ],
+  providers: [LinksService, ],
+  exports:[LinksService, ],
 })
-export class MongodbModule {}
+export class MongoDbModule {}

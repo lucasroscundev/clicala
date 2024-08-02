@@ -1,3 +1,4 @@
+/*
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { Link } from '@/domain/forum/enterprise/entities/link'
 import { Link as PrismaLink, Prisma } from '@prisma/client'
@@ -25,3 +26,4 @@ export class PrismaLinkMapper {
     }
   }
 }
+  */

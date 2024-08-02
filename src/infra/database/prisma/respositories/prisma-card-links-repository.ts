@@ -1,3 +1,4 @@
+/*
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma.service'
 import { CardLink } from '@/domain/forum/enterprise/entities/cardLink'
@@ -65,3 +66,4 @@ export class PrismaCardLinksRepository implements CardLinksRepository {
     })
   }
 }
+  */

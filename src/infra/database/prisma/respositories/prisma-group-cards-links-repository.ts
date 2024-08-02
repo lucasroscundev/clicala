@@ -1,3 +1,4 @@
+/*
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma.service'
 import { GroupCardsLink } from '@/domain/forum/enterprise/entities/groupCardsLink'
@@ -65,3 +66,4 @@ export class PrismaGroupCardsLinksRepository implements GroupCardsLinksRepositor
     })
   }
 }
+  */

@@ -3,36 +3,41 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { LinkDocument, Link, LinkSchema } from '@/infra/database/mongodb/schemas/links-schema'
+import { LinkDocument, Link } from '@/infra/database/mongodb/schemas/links-schema'
 import { CreateLinkDTO, NewLinkDTO, UpdateLinkDTO } from '../dto/link.dto';
+import { LinkModel } from '@/infra/database/mongodb/schemas/links-schema';
 
 @Injectable()
 export class LinksService {
   constructor(
-    @InjectModel(Link.name) private readonly LinkModel: Model<Link>,
+    @InjectModel(Link.name) private readonly linkModel: Model<Link> /*typeof LinkModel*/,
   ) {}
 
-  async create(createLinkDto: CreateLinkDTO): Promise<NewLinkDTO> {
-    const Link = new this.LinkModel(createLinkDto);
+  async create(createLinkDto: CreateLinkDTO,
+    userId: string
+  ): Promise<NewLinkDTO> {
+    const Link = new this.linkModel(createLinkDto, userId);
     return Link.save();
   }
 
   async findAll(): Promise<Link[]> {
-    return this.LinkModel.find().exec();
+    return this.linkModel.find().exec();
   }
 
-  findOne(id: string) {
-    return this.LinkModel.findById(id);
+  async findOne(id: string) {
+    return this.linkModel.findById(id);
   }
 
   async update(
-    id: string,
+    //id: string,
     updateLinkDto: UpdateLinkDTO,
   ): Promise<LinkDocument | null> {
-    return this.LinkModel.findByIdAndUpdate(id, updateLinkDto);
+    updateLinkDto.updatedAt = new Date
+    return this.linkModel.findByIdAndUpdate(//id,
+       updateLinkDto);
   }
 
   async remove(id: number) {
-    return this.LinkModel.findByIdAndRemove(id);
+    return this.linkModel.findByIdAndDelete(id);
   }
 }

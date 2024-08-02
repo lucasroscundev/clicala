@@ -10,7 +10,7 @@ export class LinkDTO {
   @ApiProperty({
     example: '22a18663-9bce-4584-86aa-6cbf5353a8fe',
   })
-  id: UniqueEntityID
+  _id: string
   
   @ApiProperty({
   example: 'BUTTON',
@@ -20,7 +20,7 @@ export class LinkDTO {
   @ApiProperty({
   example: '22a18663-9bce-4584-86aa-6cbf5353a8fe',
   })
-  userId: UniqueEntityID
+  userId: string
   
   @ApiProperty({
     example: 'path to Facebook Logo',
@@ -93,16 +93,18 @@ export class LinkDTO {
   updatedAt: Date
 
   
-  constructor(_id: UniqueEntityID, type: LinkType, logo: string, label: string, color: string, 
-    size: string, urlToRedirect: string, imageUrl: string, url: string, description: string, userId: UniqueEntityID, createdAt: Date, updatedAt: Date)  {
-        this.id = _id ?? new UniqueEntityID
+  constructor(_id: string, type: LinkType, logo: string, label: string, 
+    color: string, size: string, urlToRedirect: string, imageUrl: string, 
+    userId: string, createdAt: Date, updatedAt: Date)  {
+        this._id = _id
         this.type = type
-        this.userId = userId
-        this.logo
-        this.label
-        this.color
-        this.size
-        this.urlToRedirect
+        this.logo = logo
+        this.label = label
+        this.color = color
+        this.size = size
+        this.urlToRedirect = urlToRedirect
+        this.imageUrl = imageUrl
+        this.userId = userId        
         this.createdAt = createdAt
         this.updatedAt = updatedAt     
     }

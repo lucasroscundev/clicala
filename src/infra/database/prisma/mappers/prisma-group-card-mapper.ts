@@ -1,3 +1,4 @@
+/*
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { GroupCard } from '@/domain/forum/enterprise/entities/groupCard'
 import { GroupCard as PrismaGroupCard, Prisma } from '@prisma/client'
@@ -29,3 +30,4 @@ export class PrismaGroupCardMapper {
     }
   }
 }
+  */

@@ -1,3 +1,4 @@
+/*
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { CardLink } from '@/domain/forum/enterprise/entities/cardLink'
 import { CardLink as PrismaCardLink, Prisma } from '@prisma/client'
@@ -29,3 +30,4 @@ export class PrismaCardLinkMapper {
     }
   }
 }
+  */

@@ -1,3 +1,4 @@
+/*
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma.service'
 import { CarouselLink } from '@/domain/forum/enterprise/entities/carouselLink'
@@ -65,3 +66,4 @@ export class PrismaCarouselLinksRepository implements CarouselLinksRepository {
     })
   }
 }
+  */

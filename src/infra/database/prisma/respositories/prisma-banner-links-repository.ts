@@ -1,3 +1,4 @@
+/*
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma.service'
 import { BannerLinksRepository } from '@/domain/forum/application/repositories/banner-links-repository'
@@ -65,3 +66,4 @@ export class PrismaBannerLinksRepository implements BannerLinksRepository {
     })
   }
 }
+  */

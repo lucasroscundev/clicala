@@ -1,3 +1,4 @@
+/*
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { BannerLink } from '@/domain/forum/enterprise/entities/bannerLink'
 import { BannerLink as PrismaBannerLink, Prisma } from '@prisma/client'
@@ -25,3 +26,4 @@ export class PrismaBannerLinkMapper {
       }
   }
 }
+  */

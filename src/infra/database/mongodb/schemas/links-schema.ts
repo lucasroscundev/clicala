@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document, HydratedDocument, Types } from 'mongoose';
 import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { Injectable, Module } from '@nestjs/common';
 
 enum LinkType {
   BUTTON = 'button',
@@ -123,15 +124,20 @@ color: string;
 
 @Prop({ type: [CardLinkSchema], required: false })
 cards?: Types.DocumentArray<CardLinkSchema>;
+
+constructor(color: string, cards: Types.DocumentArray<CardLinkSchema>) {
+  this.color = color
+  this.cards = cards
+}
 }
 
-export type LinkDocument = HydratedDocument<Link>;// { type: Link }
+export type LinkDocument = HydratedDocument<Link>// { type: Link }
 
 @Schema({
   timestamps: { createdAt: 'created', updatedAt: 'updated' },
 })
 export class Link extends Document implements BaseLink {
-  @Prop()
+  @Prop({ required: true })
   _id: string
 
   @Prop({ required: true, enum: LinkType })
@@ -182,15 +188,33 @@ export class Link extends Document implements BaseLink {
   @Prop()
   updatedAt?: Date;
   
-  constructor(_id: string, type: LinkType, userId: string) {
+  constructor(_id: string, type: LinkType, userId: string, logo: string,
+    label: string, color: string, size: string, urlToRedirect: string, 
+    imageUrl: string, banner: BannerDocument, button: ButtonDocument,
+    cards: Types.DocumentArray<CardLinkDocument>, 
+    images: Types.DocumentArray<CarouselImageDocument>, 
+    groupCards: GroupCards, carousel: CarouselDocument,
+  ) {
     super()    
     this._id = _id ?? new UniqueEntityID()
     this.type = type
     this.userId = userId
+    this.logo = logo
+    this.label = label
+    this.color = color
+    this.size = size
+    this.urlToRedirect = urlToRedirect
+    this.imageUrl = imageUrl
+    this.banner = banner
+    this.button = button
+    this.cards = cards
+    this.images = images
+    this.groupCards = groupCards
+    this.carousel = carousel
     this.createdAt = new Date()
   };
 
-}
+} 
 
 export const LinkSchema = SchemaFactory.createForClass(Link);
 
@@ -213,4 +237,5 @@ const UserSchemaFactory = SchemaFactory.createForClass(UserSchema);
 
 // Export schemas and types
 export { LinkType, UserSchemaFactory as UserSchema };
+
 export const LinkModel =  mongoose.model('Link', LinkSchema)

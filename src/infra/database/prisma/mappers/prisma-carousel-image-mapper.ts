@@ -1,3 +1,4 @@
+/*
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { CarouselImage } from '@/domain/forum/enterprise/entities/carouselImage'
 import { CarouselImage as PrismaCarouselImage, Prisma } from '@prisma/client'
@@ -23,3 +24,4 @@ export class PrismaCarouselImageMapper {
     }
   }
 }
+  */

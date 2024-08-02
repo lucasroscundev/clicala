@@ -1,3 +1,4 @@
+/*
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { ButtonLink } from '@/domain/forum/enterprise/entities/buttonLink'
 import { ButtonLink as PrismaButtonLink, Prisma } from '@prisma/client'
@@ -29,3 +30,4 @@ export class PrismaButtonLinkMapper {
     }
   }
 }
+  */
