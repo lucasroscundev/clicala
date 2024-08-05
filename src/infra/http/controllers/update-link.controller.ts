@@ -33,8 +33,9 @@ export class UpdateLinkController {
   @ApiCreatedResponse({ type: LinkDTO })
   async handle(@Body() //id: string, 
                 updateLinkDto: LinkDTO,
-              @Param('userId') userId: string) {
-    const userIdReceived = userId
+            /*  @Param('userId') userId: string*/
+            ) {
+    /*const userIdReceived = userId
 
     const result = await this.linksService.findOne(updateLinkDto._id,
       //createdAt: new Date(),
@@ -42,7 +43,7 @@ export class UpdateLinkController {
     
     if(userIdReceived != result?.userId) {
         return new NotAllowedError
-    }
+    }*/
 
     const updatedLink = await this.linksService.update(updateLinkDto)
 

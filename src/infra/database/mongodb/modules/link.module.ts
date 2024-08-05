@@ -17,6 +17,5 @@ import { UpdateLinkController } from "@/infra/http/controllers/update-link.contr
     ],
   controllers: [CreateLinkController, FindLinkByIdController, UpdateLinkController],
   providers: [LinksService],
-  exports: [LinksService],
 })
 export class LinkModule {}

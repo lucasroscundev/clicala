@@ -44,9 +44,9 @@ export class FindLinkByIdController {
       //createdAt: new Date(),
     )
     
-    if(userIdReceived != result?.userId) {
+   /* if(userIdReceived != result?.userId) {
         return new NotAllowedError
-    }
+    }*/
 
     return result
   }

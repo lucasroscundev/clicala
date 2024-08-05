@@ -131,7 +131,7 @@ constructor(color: string, cards: Types.DocumentArray<CardLinkSchema>) {
 }
 }
 
-export type LinkDocument = HydratedDocument<Link>// { type: Link }
+export type LinkDocument = HydratedDocument<Link>  // { type: Link }
 
 @Schema({
   timestamps: { createdAt: 'created', updatedAt: 'updated' },
@@ -143,7 +143,7 @@ export class Link extends Document implements BaseLink {
   @Prop({ required: true, enum: LinkType })
   type: LinkType;
 
-  @Prop()
+  @Prop({ required: true })
   userId: string;
 
   @Prop()

@@ -12,7 +12,7 @@ import { LinkModule } from "../database/mongodb/modules/link.module";
 import { LinkModel } from "../database/mongodb/schemas/links-schema";
 
 @Module({
-  imports: [DataBaseModule, CryptographyModule, MongoDbModule],
+  imports: [DataBaseModule, CryptographyModule],
   controllers: [
     LoginUserController,
     CreateLinkController,
@@ -20,9 +20,7 @@ import { LinkModel } from "../database/mongodb/schemas/links-schema";
     UpdateLinkController,
     ],
   providers: [
-    NestLoginUserUseCase,    
-    LinksService,
-    //LinkModel,
-  ],
+    NestLoginUserUseCase,  
+    ],
 })
 export class HttpModule {}
