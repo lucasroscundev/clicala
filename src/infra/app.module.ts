@@ -14,8 +14,7 @@ import { MongoDbModule } from './database/mongodb.module'
     }),
     AuthModule,
     HttpModule,
-    EnvModule,
-    MongoDbModule,
+    EnvModule,    
   ],
 })
 export class AppModule {}

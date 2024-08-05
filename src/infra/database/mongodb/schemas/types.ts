@@ -1,4 +1,4 @@
-export type ButtonLink = {
+export type ButtonLinkType = {
     id: string;
     label: string;
     url: string;
@@ -6,34 +6,25 @@ export type ButtonLink = {
     size: string;
 };
 
-export type BannerLink = {
+export type BannerLinkType = {
     id: string;
     imageUrl: string;
     urlToRedirect: string;
     size: string;
 };
 
-export type CarouselImage = {
+export type CarouselImageType = {
     id: string;
     imageUrl: string;
     urlToRedirect: string;
 };
 
-export type CarouselLink = {
+export type CarouselLinkType = {
     id: string;
-    images: CarouselImage[];
+    images: CarouselImageType[];
 };
 
-export type CardLink = {
-    id: string;
-    imageUrl: string;
-    buttonLabel: string;
-    buttonColor: string;
-    buttonSize: string;
-    buttonUrl: string;
-};
-
-export type GroupCard = {
+export type CardLinkType = {
     id: string;
     imageUrl: string;
     buttonLabel: string;
@@ -42,16 +33,25 @@ export type GroupCard = {
     buttonUrl: string;
 };
 
-export type GroupCardsLink = {
+export type GroupCardType = {
     id: string;
-    cards: GroupCard[];
+    imageUrl: string;
+    buttonLabel: string;
+    buttonColor: string;
+    buttonSize: string;
+    buttonUrl: string;
 };
 
-export type Links = {
+export type GroupCardsLinkType = {
+    id: string;
+    cards: GroupCardType[];
+};
+
+export type LinksType = {
     orderInpageById: string[];
-    buttons: ButtonLink[];
-    banners: BannerLink[];
-    carousels: CarouselLink[];
-    cards: CardLink[];
-    groupCards: GroupCardsLink[];
+    buttons: ButtonLinkType[];
+    banners: BannerLinkType[];
+    carousels: CarouselLinkType[];
+    cards: CardLinkType[];
+    groupCards: GroupCardsLinkType[];
 };

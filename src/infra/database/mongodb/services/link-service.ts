@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { LinkDocument, Link } from '@/infra/database/mongodb/schemas/links-schema'
-import { CreateLinkDTO, LinkDTO, UpdateLinkDTO } from '../dto/link.dto';
+import { CreateLinkDTO, UpdateLinkDTO } from '../dto/link.dto';
 
 @Injectable()
 export class LinksService {

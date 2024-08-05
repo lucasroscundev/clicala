@@ -12,8 +12,8 @@ import { ZodValidationPipe } from "@/infra/http/pipes/zod-validation-pipe"
 import { Public } from "@/infra/auth/public"
 import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger"
 import { CreateLinkDTO, NewLinkDTO } from "@/infra/database/mongodb/dto/link.dto"
-import { LinksService } from "@/infra/database/mongodb/service/link-service"
 import { create } from "domain"
+import { LinksService } from "@/infra/database/mongodb/services/link-service"
 
 const createlinkBodySchema = z.object({
   type: z.string(),  

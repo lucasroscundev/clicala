@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LinkModule } from './mongodb/modules/link.module';
-import { LinksService } from './mongodb/service/link-service';
+import { LinksService } from './mongodb/services/link-service';
 import { CreateLinkController } from '../http/controllers/create-link.controller';
 import { UpdateLinkController } from '../http/controllers/update-link.controller';
 import { FindLinkByIdController } from '../http/controllers/find-link-by-id.controller';
