@@ -2,11 +2,17 @@ import { Module } from "@nestjs/common"
 import { PrismaService } from "./prisma/prisma.service"
 import { UsersRepository } from "@/domain/forum/application/repositories/users-repository"
 import { PrismaUsersRepository } from "./prisma/respositories/prisma-users-repository"
-import { LinksService } from "./mongodb/services/link-service"
-import { MongoDbModule } from "./mongodb.module"
-import { LinkModel } from "./mongodb/schemas/links-schema"
 import { ConfigModule, ConfigService } from "@nestjs/config"
 import { MongooseModule } from "@nestjs/mongoose"
+import { SimpleLinkModule } from "./mongodb/modules/simple-link-module"
+//import { SimpleBannerModel, SimpleButtonModel, SimpleCardLinkModel, SimpleCarouselImageModel, SimpleCarouselModel, SimpleGroupCardModel, SimpleGroupCardsLinkModel, SimpleLinkModel } from "./mongodb/schemas/simple-links-schema"
+import { SimpleBannerModule } from "./mongodb/modules/simple-banner-module"
+import { SimpleButtonModule } from "./mongodb/modules/simple-button-module"
+import { SimpleCardLinkModule } from "./mongodb/modules/simple-card-link-module"
+import { SimpleCarouselImageModule } from "./mongodb/modules/simple-carousel-image-module"
+import { SimpleCarouselModule } from "./mongodb/modules/simple-carousel-module"
+import { SimpleGroupCardModule } from "./mongodb/modules/simple-group-card-module"
+import { SimpleGroupCardsLinkModule } from "./mongodb/modules/simple-group-cards-link-module"
 /*
 import { LinksRepository } from "@/domain/forum/application/repositories/links-repository"
 import { PrismaLinksRepository } from "./prisma/respositories/prisma-links-repository"
@@ -15,25 +21,14 @@ import { PrismaLinksRepository } from "./prisma/respositories/prisma-links-repos
 @Module({
   // imports Added to attemp MongoDB implementation
   imports:[
-    ConfigModule.forRoot({
-      envFilePath: '.env',
-      isGlobal: true,
-    }), // Adiciona o ConfigModule
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => {
-        const uri = configService.get<string>('MONGO_URI');
-        const dbName = configService.get<string>('MONGODB_NAME');
-        return {
-          uri: `${uri}/${dbName}`,
-          user: configService.get<string>('MONGO_USER'),
-          pass: configService.get<string>('MONGO_PASS'),
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-        };
-      },
-    }),
+MongooseModule.forRoot('mongodb://localhost:27017/clicala'), 
+SimpleLinkModule, SimpleBannerModule, SimpleButtonModule, SimpleCardLinkModule, 
+SimpleCarouselImageModule, SimpleCarouselModule, SimpleGroupCardModule, SimpleGroupCardsLinkModule,
+/*
+SimpleLinkModel, SimpleBannerModel,
+SimpleButtonModel, SimpleCardLinkModel, SimpleCarouselImageModel, SimpleCarouselModel,
+SimpleGroupCardModel, SimpleGroupCardsLinkModel,
+*/
   ],
   providers: [
     PrismaService,    

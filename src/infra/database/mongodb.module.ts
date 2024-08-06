@@ -1,3 +1,4 @@
+/*
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -26,7 +27,7 @@ import { LinkModel } from './mongodb/schemas/links-schema';
           pass: configService.get<string>('MONGO_PASS'),
           useNewUrlParser: true,
           useUnifiedTopology: true,
-        };
+        };        
       },
     }),
     LinkModule,
@@ -37,3 +38,4 @@ import { LinkModel } from './mongodb/schemas/links-schema';
   exports:[LinksService],
 })
 export class MongoDbModule {}
+*/

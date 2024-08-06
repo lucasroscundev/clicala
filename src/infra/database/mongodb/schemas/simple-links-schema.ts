@@ -3,10 +3,11 @@ import mongoose, { Document, HydratedDocument, Types } from 'mongoose';
 //import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { BannerLinkType, ButtonLinkType, CardLinkType, CarouselImageType, CarouselLinkType, GroupCardsLinkType, GroupCardType, LinksType } from './types';
+import { ApiProperty } from '@nestjs/swagger';
 
 export type SimpleBannerDocument  = HydratedDocument<SimpleBanner>; //{ type: Banner }
 
-@Schema()
+@Schema({ collection: 'banners' })
 export class SimpleBanner implements BannerLinkType{
   @Prop({ required: true })
   id: string;
@@ -33,7 +34,7 @@ export const SimpleBannerSchema = SchemaFactory.createForClass(SimpleBanner);
 
 export type SimpleButtonDocument  = HydratedDocument<SimpleButton>; // { type: SimpleButton }
 
-@Schema()
+@Schema( { collection: 'buttons' })
 export class SimpleButton implements ButtonLinkType{
   @Prop({ required: true })
   id: string;
@@ -66,7 +67,7 @@ export const SimpleButtonSchema = SchemaFactory.createForClass(SimpleButton);
 
 export type SimpleCardLinkDocument = HydratedDocument<SimpleCardLink>; // { type: SimpleCardLink }
 
-@Schema()
+@Schema({ collection: 'cardLinks'})
 export class SimpleCardLink implements CardLinkType{
   @Prop({ required: true })
   id: string;
@@ -102,7 +103,7 @@ export const SimpleCardLinkSchema = SchemaFactory.createForClass(SimpleCardLink)
 
 export type SimpleCarouselImageDocument = HydratedDocument<SimpleCarouselImage>; // { type: SimpleCarouselImage }
 
-@Schema()
+@Schema({ collection: 'carouselImages' })
 export class SimpleCarouselImage implements CarouselImageType{
   @Prop({ required: true })
   id: string;
@@ -125,7 +126,7 @@ export const SimpleCarouselImageSchema = SchemaFactory.createForClass(SimpleCaro
 
 export type SimpleCarouselDocument = HydratedDocument<SimpleCarousel>; // { type: SimpleCarousel }
 
-@Schema()
+@Schema({ collection: 'carousels'})
 export class SimpleCarousel implements CarouselLinkType{
   @Prop({ required: true })
   id: string;
@@ -144,7 +145,7 @@ export const SimpleCarouselSchema = SchemaFactory.createForClass(SimpleCarousel)
 
 export type SimpleGroupCardDocument  = HydratedDocument<SimpleGroupCard>; // { type: SimpleGroupCard }
 
-@Schema()
+@Schema({collection: 'groupCards'})
 export class SimpleGroupCard implements GroupCardType{
   @Prop({ required: true })
   id: string;
@@ -180,7 +181,7 @@ export const SimpleGroupCardSchema = SchemaFactory.createForClass(SimpleGroupCar
 
 export type SimpleGroupCardsLinkDocument  = HydratedDocument<SimpleGroupCardsLink>; //{ type: SimpleGroupCardsLink }
 
-@Schema()
+@Schema({ collection: 'groupCardsLinks'})
 export class SimpleGroupCardsLink implements GroupCardsLinkType{
   @Prop({ required: true })
   id: string;
@@ -198,12 +199,13 @@ export const SimpleGroupCardsLinkSchema = SchemaFactory.createForClass(SimpleGro
 
 export type SimpleLinkDocument = HydratedDocument<SimpleLink>; //{ type: Link }
 
-@Schema(/*{
-  /*timestamps: { createdAt: 'created', updatedAt: 'updated' },
-}*/)
+@Schema({
+  timestamps: { createdAt: 'created', updatedAt: 'updated' },
+  collection: 'links'
+})
 export class SimpleLink implements LinksType {
   @Prop({ required: true })
-  orderInpageById: string[];
+  orderInpageById: (string[] | []);
 
   @Prop({ type: [SimpleButton], required: false })
   buttons: Types.DocumentArray<SimpleButton>; //ButtonLinkType[] OR[SimpleButton]
@@ -263,7 +265,7 @@ class UserSchema extends Document {
 export const UserSchemaFactory = SchemaFactory.createForClass(UserSchema);
 
 // Export schemas and types
-
+/*
 export const SimpleLinkModel =  mongoose.model('SimpleLink', SimpleLinkSchema)
 export const SimpleBannerModel = mongoose.model('SimpleBanner', SimpleBannerSchema)
 export const SimpleButtonModel = mongoose.model('SimpleButton', SimpleButtonSchema)
@@ -274,4 +276,4 @@ export const SimpleGroupCardModel = mongoose.model('SimpleGroupCard', SimpleGrou
 export const SimpleGroupCardsLinkModel = mongoose.model('SimpleGroupCardsLink', SimpleGroupCardsLinkSchema)
 
 module.exports = { SimpleLinkModel, SimpleBannerModel, SimpleButtonModel, SimpleCardLinkModel,
-SimpleCarouselImageModel, SimpleCarouselModel, SimpleGroupCardModel, SimpleGroupCardsLinkModel}
+SimpleCarouselImageModel, SimpleCarouselModel, SimpleGroupCardModel, SimpleGroupCardsLinkModel}*/

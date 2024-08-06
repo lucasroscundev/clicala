@@ -3,17 +3,17 @@ import { SimpleLink } from "../schemas/simple-links-schema";
 
 export class SimpleLinkDTO {
   @ApiProperty({
-    example: ['agjhe-237j3k4-34m5ço6=famp706']
+    example: ['agjhe-237j3k4-34m5ço6=famp706'],
   })
   orderInpageById: string[];
 
     @ApiProperty({
-    example: [{
+    example: {
         "id": "string",
         "imageUrl": "https://banners.com/instagram/userXYZ123",
         "urlToRedirect": "https://banners.com/instagram/userXYZ123",            
         "size": "medium",
-    }]
+    }
   })
   banners: string[];
 

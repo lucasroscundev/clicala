@@ -20,5 +20,6 @@ import { CreateSimpleLinkController } from "@/infra/http/controllers/create-simp
   ],
   controllers: [CreateSimpleLinkController],
   providers: [SimpleLinksService],
+  exports: [SimpleLinksService],
 })
 export class SimpleLinkModule {}

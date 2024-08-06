@@ -5,7 +5,7 @@ import { Module } from "@nestjs/common";
 @Module({
   imports: [
     MongooseModule.forFeature([{ 
-      name: SimpleCarouselImage.name, schema: SimpleCarouselImageSchema 
+      name: SimpleCarouselImage.name , schema: SimpleCarouselImageSchema 
     }]),
   ],
   controllers: [],

@@ -33,7 +33,7 @@ services:
 
   mongo:
     environment:
-      MONGODB_URI: 'mongodb://mongo:27017/nest'
+      MONGODB_URI: 'mongodb://mongo:27017/clicala'
       MONGODB_NAME: mongodb_database
       MONGODB_USER: mongodb_user
       MONGODB_PASS: mongo_docker
