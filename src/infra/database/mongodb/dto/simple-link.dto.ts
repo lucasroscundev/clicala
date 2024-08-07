@@ -2,6 +2,8 @@ import { ApiProperty, PartialType } from "@nestjs/swagger";
 import { SimpleLink } from "../schemas/simple-links-schema";
 
 export class SimpleLinkDTO {
+  @ApiProperty()
+  id: string
   @ApiProperty({
     example: ['agjhe-237j3k4-34m5ço6=famp706'],
   })
@@ -67,14 +69,32 @@ export class SimpleLinkDTO {
   })
   groupCards: string[];
 
-  constructor(orderInpageById: string[], buttons: string[], banners: string[],
-    carousels: string[], cards: string[], groupCards: string[]) {
+  @ApiProperty({
+    example: {
+      "created": "2024-08-06T21:43:27.833Z",
+    }
+  })
+  createdAt: Date
+
+  @ApiProperty({
+    example: {
+      "updated": "2024-08-06T21:43:27.833Z",
+    }    
+  })
+  updatedAt: Date
+
+  constructor(id: string, orderInpageById: string[], buttons: string[], banners: string[],
+    carousels: string[], cards: string[], groupCards: string[],
+  createdAt: Date, updatedAt: Date) {
+    this.id = id  
     this.orderInpageById = orderInpageById
     this.banners = banners
     this.buttons = buttons
     this.cards = cards
     this.carousels = carousels
     this.groupCards = groupCards
+    this.createdAt = createdAt
+    this.updatedAt = updatedAt
   }
 }
 

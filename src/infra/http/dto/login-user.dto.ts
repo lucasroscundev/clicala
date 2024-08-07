@@ -10,7 +10,7 @@ export class UserDTO {
   @ApiProperty({
     example: '22a18663-9bce-4584-86aa-6cbf5353a8fe',
   })
-  id: UniqueEntityID
+  id: string
 
   @ApiProperty({
   example: 'John Doe XXX',    
@@ -57,8 +57,15 @@ export class UserDTO {
   })
   createdAt: Date
 
-  constructor(id: UniqueEntityID, email: string, name: string, nickname: string, picture: string, 
-    emailVerified: boolean, givenName: string, familyName: string, isAuthUser: boolean, createdAt: Date) {
+  @ApiProperty({
+    example: '2012-04-23T18:25:43.511Z',
+  })
+  updatedAt: Date
+
+
+  constructor(id: string, email: string, name: string, nickname: string, picture: string, 
+    emailVerified: boolean, givenName: string, familyName: string, isAuthUser: boolean, createdAt: Date,
+  updatedAt: Date) {
         this.id = id,
         this.name = name,
         this.email = email,
@@ -69,10 +76,11 @@ export class UserDTO {
         this.familyName = familyName,
         this.isAuthUser = isAuthUser,
         this.createdAt = createdAt
+        this.updatedAt = updatedAt || createdAt
   }      
         
         
     
 }
 
-export class LoginUserDTO extends OmitType(UserDTO, ['id'] as const) {}
+export class LoginUserDTO extends OmitType(UserDTO, ['id', 'updatedAt'] as const) {}

@@ -8,13 +8,13 @@ import { CreateSimpleLinkDTO, UpdateSimpleLinkDTO } from '../dto/simple-link.dto
 export class SimpleLinksService {
   constructor(
     @InjectModel(SimpleLink.name) private  linkModel: Model<SimpleLink>, 
-    @InjectModel(SimpleBanner.name) private  bannerModel: Model<SimpleBanner>,
+    /*@InjectModel(SimpleBanner.name) private  bannerModel: Model<SimpleBanner>,
     @InjectModel(SimpleButton.name) private  buttonModel: Model<SimpleButton>,
     @InjectModel(SimpleCardLink.name) private  cardLinkModel: Model<SimpleCardLink>,
     @InjectModel(SimpleCarouselImage.name) private  carouselImageModel: Model<SimpleCarouselImage>,
     @InjectModel(SimpleCarousel.name) private  carouselModel: Model<SimpleCarousel>,
     @InjectModel(SimpleGroupCard.name) private  gropCardModel: Model<SimpleGroupCard>,
-    @InjectModel(SimpleGroupCardsLink.name) private  groupCardsLinkModel: Model<SimpleGroupCardsLink>,
+    @InjectModel(SimpleGroupCardsLink.name) private  groupCardsLinkModel: Model<SimpleGroupCardsLink>,*/
   ) {}
 
   async create(createLinkDto: CreateSimpleLinkDTO,

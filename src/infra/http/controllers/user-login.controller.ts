@@ -3,6 +3,7 @@ import {
   Controller,
   HttpCode,
   Post,
+  Res,
   UsePipes,
 } from "@nestjs/common"
 import { z } from "zod"
@@ -11,6 +12,7 @@ import { Public } from "@/infra/auth/public"
 import { NestLoginUserUseCase } from "@/infra/representations/nest-user-login-use-case"
 import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger"
 import { LoginUserDTO, UserDTO } from "../dto/login-user.dto"
+import { PrismaUserMapper } from "@/infra/database/prisma/mappers/prisma-user-mapper"
 
 const loginUserBodySchema = z.object({
   email: z.string().email().min(1, "email obrigatório"),
@@ -36,9 +38,10 @@ export class LoginUserController {
 
   @Post()
   @HttpCode(201)
-  @UsePipes(new ZodValidationPipe(loginUserBodySchema))
+  //@UsePipes(new ZodValidationPipe(loginUserBodySchema))
   @ApiCreatedResponse({ type: UserDTO })
-  async handle(@Body() body: LoginUserDTO) {
+  
+  async handle(@Body() body: LoginUserDTO, ) {
     const {
       email,
       name,
@@ -60,8 +63,9 @@ export class LoginUserController {
       familyName,
       isAuthUser,
       createdAt: new Date(),
-    })  
+    })
+    const response = PrismaUserMapper.toHTTP(result)
 
-    return result
+    return response
   }
 }

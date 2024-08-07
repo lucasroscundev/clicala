@@ -1,7 +1,7 @@
 import { HashGenerator } from '../cryptography/hash-generator'
 import { UsersRepository } from '../repositories/users-repository'
 import { User } from '../../enterprise/entities/user'
-import { LoginUserDTO } from '@/infra/http/dto/login-user.dto'
+import { LoginUserDTO, UserDTO } from '@/infra/http/dto/login-user.dto'
 
 interface LoginUserUseCaseRequest {
     email: string
@@ -15,7 +15,7 @@ interface LoginUserUseCaseRequest {
     createdAt: Date    
 }
 
-export type LoginUserUseCaseResponse =  
+export type LoginUserUseCaseResponse =
   {
     user: User
   }

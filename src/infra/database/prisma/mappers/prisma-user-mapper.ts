@@ -1,5 +1,6 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id'
 import { User } from '@/domain/forum/enterprise/entities/user'
+import { UserDTO } from '@/infra/http/dto/login-user.dto'
 import { User as PrismaUser, Prisma } from '@prisma/client'
 
 export class PrismaUserMapper {
@@ -34,6 +35,22 @@ export class PrismaUserMapper {
       isAuthUser: user.isAuthUser,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt, 
+    }
+  }
+
+  static toHTTP(response: {user: User}): UserDTO {
+    return {
+      id: response.user.id.toString(),
+      email: response.user.email,
+      name: response.user.name,
+      nickname: response.user.nickname,
+      picture: response.user.picture || "",
+      emailVerified: response.user.emailVerified,
+      givenName: response.user.givenName,
+      familyName: response.user.familyName,
+      isAuthUser: response.user.isAuthUser,
+      createdAt: response.user.createdAt,
+      updatedAt: response.user.updatedAt || response.user.createdAt,
     }
   }
 }

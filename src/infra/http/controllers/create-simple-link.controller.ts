@@ -18,7 +18,7 @@ import { CreateSimpleLinkDTO, SimpleLinkDTO, UpdateSimpleLinkDTO } from "@/infra
 
 
 @ApiTags("simplelinks")
-@Controller("/simplelink/:userId")
+@Controller("/simplelink/") //incluir :userId no caminho
 @Public()
 export class CreateSimpleLinkController {
   constructor(

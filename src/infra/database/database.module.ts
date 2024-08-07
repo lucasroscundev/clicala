@@ -5,7 +5,6 @@ import { PrismaUsersRepository } from "./prisma/respositories/prisma-users-repos
 import { ConfigModule, ConfigService } from "@nestjs/config"
 import { MongooseModule } from "@nestjs/mongoose"
 import { SimpleLinkModule } from "./mongodb/modules/simple-link-module"
-//import { SimpleBannerModel, SimpleButtonModel, SimpleCardLinkModel, SimpleCarouselImageModel, SimpleCarouselModel, SimpleGroupCardModel, SimpleGroupCardsLinkModel, SimpleLinkModel } from "./mongodb/schemas/simple-links-schema"
 import { SimpleBannerModule } from "./mongodb/modules/simple-banner-module"
 import { SimpleButtonModule } from "./mongodb/modules/simple-button-module"
 import { SimpleCardLinkModule } from "./mongodb/modules/simple-card-link-module"
@@ -22,13 +21,8 @@ import { PrismaLinksRepository } from "./prisma/respositories/prisma-links-repos
   // imports Added to attemp MongoDB implementation
   imports:[
 MongooseModule.forRoot('mongodb://localhost:27017/clicala'), 
-SimpleLinkModule, SimpleBannerModule, SimpleButtonModule, SimpleCardLinkModule, 
-SimpleCarouselImageModule, SimpleCarouselModule, SimpleGroupCardModule, SimpleGroupCardsLinkModule,
-/*
-SimpleLinkModel, SimpleBannerModel,
-SimpleButtonModel, SimpleCardLinkModel, SimpleCarouselImageModel, SimpleCarouselModel,
-SimpleGroupCardModel, SimpleGroupCardsLinkModel,
-*/
+SimpleLinkModule, /*SimpleBannerModule, SimpleButtonModule, SimpleCardLinkModule, 
+SimpleCarouselImageModule, SimpleCarouselModule, SimpleGroupCardModule, SimpleGroupCardsLinkModule,*/
   ],
   providers: [
     PrismaService,    
