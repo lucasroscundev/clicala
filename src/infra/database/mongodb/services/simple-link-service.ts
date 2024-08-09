@@ -36,12 +36,14 @@ export class SimpleLinksService {
   async update(
      updateLinkDto: UpdateSimpleLinkDTO,
   ): Promise<SimpleLinkDocument | null> {
-    const updatedLink = this.linkModel.findOneAndUpdate(
+    const modifyLink = await this.linkModel.findOneAndUpdate(
       updateLinkDto);
 
-    if (!updatedLink) {
+    if (!modifyLink) {
       throw new ResourceNotFoundError
     }
+
+    const updatedLink = await this.linkModel.findById(modifyLink)
 
       return updatedLink
   }
