@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Post,
+  Put,
   UsePipes,
 } from "@nestjs/common"
 import { z } from "zod"
@@ -50,11 +51,33 @@ export class CreateSimpleLinkController {
     return this.simplelinksService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put()
   @HttpCode(202)
   @ApiCreatedResponse({ type: SimpleLinkDTO })
-  async update(@Param('id') id: string, @Body() updateSimpleLinkDTO: UpdateSimpleLinkDTO) {
-    return this.simplelinksService.update(id, updateSimpleLinkDTO)
+  async update(/*@Param('id') id: string,*/ @Body() body: SimpleLinkDTO
+//  updateSimpleLinkDTO: UpdateSimpleLinkDTO
+) {
+    const {
+      id,
+      orderInpageById,
+      banners,
+      buttons,
+      cards,
+      carousels,
+      groupCards,
+      createdAt,
+      updatedAt,
+
+    } = body
+     const updatedLink = await this.simplelinksService.update({
+      orderInpageById,
+      banners,
+      buttons,
+      cards,
+      carousels,
+      groupCards,
+     })
+    return updatedLink
   }
 
   @Delete(':id')

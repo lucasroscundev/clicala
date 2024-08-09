@@ -1,4 +1,4 @@
-import { ApiProperty, PartialType } from "@nestjs/swagger";
+import { ApiProperty, OmitType, PartialType } from "@nestjs/swagger";
 import { SimpleLink } from "../schemas/simple-links-schema";
 
 export class SimpleLinkDTO {
@@ -100,4 +100,4 @@ export class SimpleLinkDTO {
 
 export class CreateSimpleLinkDTO extends PartialType(SimpleLinkDTO) {}
 
-export class UpdateSimpleLinkDTO extends PartialType(SimpleLinkDTO) {}
+export class UpdateSimpleLinkDTO extends OmitType(SimpleLinkDTO, ['id', 'createdAt', 'updatedAt'] as const) {}

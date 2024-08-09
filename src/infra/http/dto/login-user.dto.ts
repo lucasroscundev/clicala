@@ -83,4 +83,6 @@ export class UserDTO {
     
 }
 
-export class LoginUserDTO extends OmitType(UserDTO, ['id', 'updatedAt'] as const) {}
+export class LoginUserDTO extends OmitType(UserDTO, ['id','updatedAt'] as const) {}
+
+export class LoggedUserDTO extends OmitType(UserDTO, ['createdAt', 'updatedAt'] as const) {}

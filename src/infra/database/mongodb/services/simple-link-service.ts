@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SimpleBanner, SimpleButton, SimpleCardLink, SimpleCarousel, SimpleCarouselImage, SimpleGroupCard, SimpleGroupCardsLink, SimpleLink, SimpleLinkDocument } from '../schemas/simple-links-schema';
 import { CreateSimpleLinkDTO, UpdateSimpleLinkDTO } from '../dto/simple-link.dto';
+import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 
 @Injectable()
 export class SimpleLinksService {
@@ -33,12 +34,14 @@ export class SimpleLinksService {
   }
 
   async update(
-    id: string,
-    updateLinkDto: UpdateSimpleLinkDTO,
+     updateLinkDto: UpdateSimpleLinkDTO,
   ): Promise<SimpleLinkDocument | null> {
-    const updatedLink = this.linkModel.findByIdAndUpdate(
-      id,
+    const updatedLink = this.linkModel.findOneAndUpdate(
       updateLinkDto);
+
+    if (!updatedLink) {
+      throw new ResourceNotFoundError
+    }
 
       return updatedLink
   }

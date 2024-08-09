@@ -1,9 +1,7 @@
 
-import { UniqueEntityID } from "@/core/entities/unique-entity-id"
 import { LinkType, GroupCards, BannerDocument, ButtonDocument, CardLinkDocument, CarouselImageDocument, CarouselDocument } from "@/infra/database/mongodb/schemas/links-schema"
 import { ApiProperty, OmitType, PartialType } from "@nestjs/swagger"
 import {} from 'class-validator'
-import { Types } from 'mongoose'
 
 
 export class LinkDTO {
