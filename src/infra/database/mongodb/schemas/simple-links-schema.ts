@@ -201,9 +201,14 @@ export type SimpleLinkDocument = HydratedDocument<SimpleLink>; //{ type: Link }
 
 @Schema({
   timestamps: { createdAt: 'created', updatedAt: 'updated' },
-  collection: 'links'
+  collection: 'links',
+  /*_id: false */
 })
 export class SimpleLink implements LinksType {
+
+  @Prop({ required: true })
+  userId: string;
+
   @Prop({ required: true })
   orderInpageById: (string[] | []);
 
@@ -230,10 +235,11 @@ export class SimpleLink implements LinksType {
   @Prop()
   updatedAt?: Date;
  */ 
-  constructor(orderInpageById: string[], buttons: Types.DocumentArray<SimpleButton>,
+  constructor(userId: string, orderInpageById: string[], buttons: Types.DocumentArray<SimpleButton>,
     banners: Types.DocumentArray<SimpleBanner>, carousels: Types.DocumentArray<SimpleCarousel>,
     cards: Types.DocumentArray<SimpleCardLink>, groupCards: Types.DocumentArray<SimpleGroupCardsLink>,
   ) {
+    this.userId = userId
     this.orderInpageById = orderInpageById 
     this.buttons = buttons 
     this.banners = banners 

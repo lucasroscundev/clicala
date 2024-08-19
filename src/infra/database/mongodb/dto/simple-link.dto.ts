@@ -2,8 +2,11 @@ import { ApiProperty, OmitType, PartialType } from "@nestjs/swagger";
 import { SimpleLink } from "../schemas/simple-links-schema";
 
 export class SimpleLinkDTO {
-  @ApiProperty()
-  id: string
+  @ApiProperty({
+    example: '31690d31-a770-4098-972a-c12fc80fb296',
+  })
+  userId: string
+
   @ApiProperty({
     example: ['agjhe-237j3k4-34m5ço6=famp706'],
   })
@@ -83,10 +86,10 @@ export class SimpleLinkDTO {
   })
   updatedAt: Date
 
-  constructor(id: string, orderInpageById: string[], buttons: string[], banners: string[],
+  constructor(userId: string, orderInpageById: string[], buttons: string[], banners: string[],
     carousels: string[], cards: string[], groupCards: string[],
   createdAt: Date, updatedAt: Date) {
-    this.id = id  
+    this.userId = userId  
     this.orderInpageById = orderInpageById
     this.banners = banners
     this.buttons = buttons
@@ -100,4 +103,4 @@ export class SimpleLinkDTO {
 
 export class CreateSimpleLinkDTO extends PartialType(SimpleLinkDTO) {}
 
-export class UpdateSimpleLinkDTO extends OmitType(SimpleLinkDTO, ['id', 'createdAt', 'updatedAt'] as const) {}
+export class UpdateSimpleLinkDTO extends OmitType(SimpleLinkDTO, ['userId', 'createdAt', 'updatedAt'] as const) {}

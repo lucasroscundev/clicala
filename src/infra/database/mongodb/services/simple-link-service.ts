@@ -48,9 +48,9 @@ export class SimpleLinksService {
       return updatedLink
   }
 
-  async remove(id: string) {
-    const linkRemovedId = id
-    await this.linkModel.findByIdAndDelete(id);
-    return `The link with id ${linkRemovedId} was deleted.`
+  async remove(userId: string) {
+    //const linkRemovedId = userId
+    await this.linkModel.deleteMany({userId: userId}) //.findByIdAndDelete(id);
+    //return `The links with userId ${linkRemovedId} was deleted.`
   }
 }

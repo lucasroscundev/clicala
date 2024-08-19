@@ -36,55 +36,57 @@ export class CreateSimpleLinkController {
 
     return result
   }
-
+/*
   @Get()
   @HttpCode(200)
   @ApiCreatedResponse({ type: [SimpleLinkDTO]})
   async findAll() {
     return this.simplelinksService.findAll()
   }
-
-  @Get(':id')
+*/
+  @Get(':userId')
   @HttpCode(200)
   @ApiCreatedResponse({ type: SimpleLinkDTO })
-  async findOne(@Param('id') id: string) {
-    return this.simplelinksService.findOne(id);
+  async findOne(@Param('userId') userId: string) {
+    return this.simplelinksService.findOne(userId);
   }
 
   @Put()
-  @HttpCode(202)
+  @HttpCode(201)
   @ApiCreatedResponse({ type: SimpleLinkDTO })
   async update(/*@Param('id') id: string,*/ @Body() body: SimpleLinkDTO
 //  updateSimpleLinkDTO: UpdateSimpleLinkDTO
 ) {
     const {
-      id,
+      //userId,
       orderInpageById,
       banners,
       buttons,
       cards,
       carousels,
       groupCards,
-      createdAt,
-      updatedAt,
+      //createdAt,
+      //updatedAt,
 
     } = body
-     const updatedLink = await this.simplelinksService.update({
+    
+     const updatedLink = await this.simplelinksService.update( body /*{
       orderInpageById,
       banners,
       buttons,
       cards,
       carousels,
       groupCards,
-     })
+     }*/)
     return updatedLink
   }
 
-  @Delete(':id')
+  @Delete(':userId')
   @HttpCode(204)
   @ApiCreatedResponse({ type: String })
-  async remove(@Param('id') id: string) {
-    return this.simplelinksService.remove(id)
+  async remove(@Param('userId') userId: string) {
+    await this.simplelinksService.remove(userId)
+    return `The links with userId ${userId} was deleted.`
   }
 
 }
