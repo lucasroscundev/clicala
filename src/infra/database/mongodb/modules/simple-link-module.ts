@@ -9,13 +9,13 @@ import { CreateSimpleLinkController } from "@/infra/http/controllers/create-simp
   imports: [
     MongooseModule.forFeature([
       { name: SimpleLink.name, schema: SimpleLinkSchema },
-      { name: SimpleBanner.name, schema: SimpleBannerSchema },
+      /*{ name: SimpleBanner.name, schema: SimpleBannerSchema },
       { name: SimpleButton.name, schema: SimpleButtonSchema },
       { name: SimpleCardLink.name, schema: SimpleCardLinkSchema },
       { name: SimpleCarouselImage.name, schema: SimpleCarouselImageSchema },
       { name: SimpleCarousel.name, schema: SimpleCarouselSchema },
       { name: SimpleGroupCard.name, schema: SimpleGroupCardSchema},
-      { name: SimpleGroupCardsLink.name, schema: SimpleGroupCardsLinkSchema},
+      { name: SimpleGroupCardsLink.name, schema: SimpleGroupCardsLinkSchema},*/
     ]),
   ],
   controllers: [CreateSimpleLinkController],

@@ -55,3 +55,16 @@ export type LinksType = {
     cards: CardLinkType[];
     groupCards: GroupCardsLinkType[];
 };
+
+export type UsersType = {
+  email: string
+  name: string  
+  nickname: string
+  picture: string
+  emailVerified: boolean
+  givenName: string
+  familyName: string
+  isAuthUser: boolean 
+  links: string[]
+};
+

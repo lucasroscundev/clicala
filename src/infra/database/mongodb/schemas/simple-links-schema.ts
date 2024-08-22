@@ -2,12 +2,13 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document, HydratedDocument, Types } from 'mongoose';
 //import { Entity } from '@/core/entities/entity';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import { BannerLinkType, ButtonLinkType, CardLinkType, CarouselImageType, CarouselLinkType, GroupCardsLinkType, GroupCardType, LinksType } from './types';
+import { BannerLinkType, ButtonLinkType, CardLinkType, CarouselImageType, CarouselLinkType, GroupCardsLinkType, GroupCardType, LinksType, UsersType } from './types';
 import { ApiProperty } from '@nestjs/swagger';
+import { string } from 'zod';
 
 export type SimpleBannerDocument  = HydratedDocument<SimpleBanner>; //{ type: Banner }
 
-@Schema({ collection: 'banners' })
+@Schema()
 export class SimpleBanner implements BannerLinkType{
   @Prop({ required: true })
   id: string;
@@ -34,7 +35,7 @@ export const SimpleBannerSchema = SchemaFactory.createForClass(SimpleBanner);
 
 export type SimpleButtonDocument  = HydratedDocument<SimpleButton>; // { type: SimpleButton }
 
-@Schema( { collection: 'buttons' })
+@Schema()
 export class SimpleButton implements ButtonLinkType{
   @Prop({ required: true })
   id: string;
@@ -67,7 +68,7 @@ export const SimpleButtonSchema = SchemaFactory.createForClass(SimpleButton);
 
 export type SimpleCardLinkDocument = HydratedDocument<SimpleCardLink>; // { type: SimpleCardLink }
 
-@Schema({ collection: 'cardLinks'})
+@Schema()
 export class SimpleCardLink implements CardLinkType{
   @Prop({ required: true })
   id: string;
@@ -103,7 +104,7 @@ export const SimpleCardLinkSchema = SchemaFactory.createForClass(SimpleCardLink)
 
 export type SimpleCarouselImageDocument = HydratedDocument<SimpleCarouselImage>; // { type: SimpleCarouselImage }
 
-@Schema({ collection: 'carouselImages' })
+@Schema()
 export class SimpleCarouselImage implements CarouselImageType{
   @Prop({ required: true })
   id: string;
@@ -126,7 +127,7 @@ export const SimpleCarouselImageSchema = SchemaFactory.createForClass(SimpleCaro
 
 export type SimpleCarouselDocument = HydratedDocument<SimpleCarousel>; // { type: SimpleCarousel }
 
-@Schema({ collection: 'carousels'})
+@Schema()
 export class SimpleCarousel implements CarouselLinkType{
   @Prop({ required: true })
   id: string;
@@ -145,7 +146,7 @@ export const SimpleCarouselSchema = SchemaFactory.createForClass(SimpleCarousel)
 
 export type SimpleGroupCardDocument  = HydratedDocument<SimpleGroupCard>; // { type: SimpleGroupCard }
 
-@Schema({collection: 'groupCards'})
+@Schema()
 export class SimpleGroupCard implements GroupCardType{
   @Prop({ required: true })
   id: string;
@@ -181,7 +182,7 @@ export const SimpleGroupCardSchema = SchemaFactory.createForClass(SimpleGroupCar
 
 export type SimpleGroupCardsLinkDocument  = HydratedDocument<SimpleGroupCardsLink>; //{ type: SimpleGroupCardsLink }
 
-@Schema({ collection: 'groupCardsLinks'})
+@Schema()
 export class SimpleGroupCardsLink implements GroupCardsLinkType{
   @Prop({ required: true })
   id: string;
@@ -253,22 +254,60 @@ export class SimpleLink implements LinksType {
 
 export const SimpleLinkSchema = SchemaFactory.createForClass(SimpleLink);
 
-@Schema({ collection: 'users', timestamps: true })
-class UserSchema extends Document {
+export type UserDocument = HydratedDocument<User>; //{ type: Link }
+
+@Schema({ 
+  collection: 'users', 
+  timestamps: { createdAt: 'created', updatedAt: 'updated' },
+ })
+export class User implements UsersType {
+
   @Prop({ required: true, unique: true })
-  id: string;
+  email: string;
 
-  @Prop({ type: [SimpleLink], required: true })
-  links: Types.DocumentArray<SimpleLink>;
+  @Prop({ required: true })
+  name: string;
 
-  constructor(id: string, links: Types.DocumentArray<SimpleLink>) {
-    super()
-    this.id = (new UniqueEntityID).toString()
+  @Prop({ required: true, default: "" })
+  nickname: string;
+
+  @Prop({ required: true, default: "" })
+  picture: string;
+
+  @Prop({ required: true, default: true })
+  emailVerified: boolean;
+
+  @Prop({ required: true })
+  givenName: string;
+
+  @Prop({ required: true })
+  familyName: string;
+
+  @Prop({ required: true, default: true })
+  isAuthUser: boolean;
+
+  @Prop({ type: [string], required: false, default: [] })
+  links: [string];
+
+
+  constructor(email: string, name: string, nickname: string, 
+    picture: string, emailVerified: boolean, givenName: string, familyName: string, 
+    isAuthUser: boolean, links: [string]) {
+
+    this.email = email
+    this.name = name  
+    this.nickname = nickname
+    this.picture = picture
+    this.emailVerified = emailVerified
+    this.givenName = givenName
+    this.familyName = familyName
+    this.isAuthUser = isAuthUser
+
     this.links = links
   }
 }
 
-export const UserSchemaFactory = SchemaFactory.createForClass(UserSchema);
+export const UserSchema = SchemaFactory.createForClass(User);
 
 // Export schemas and types
 /*
