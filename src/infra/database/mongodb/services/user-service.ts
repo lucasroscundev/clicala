@@ -13,6 +13,10 @@ export class UsersService {
 
   async create(loginUserDTO: LoginUserDTO,
    ): Promise<UserDocument> { //aqui podemos trocar por entidade ou DTO
+    const nicknameExists = await this.userModel.find({nickname: loginUserDTO.nickname})
+    
+    //if () {}
+    
     const user = await this.userModel.create(loginUserDTO);
     user.save();
     return user;

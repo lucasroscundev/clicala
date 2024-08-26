@@ -268,7 +268,7 @@ export class User implements UsersType {
   @Prop({ required: true })
   name: string;
 
-  @Prop({ required: true, default: "" })
+  @Prop({ required: true, unique: true })
   nickname: string;
 
   @Prop({ required: true, default: "" })
@@ -286,13 +286,9 @@ export class User implements UsersType {
   @Prop({ required: true, default: true })
   isAuthUser: boolean;
 
-  @Prop({ type: [string], required: false, default: [] })
-  links: [string];
-
-
   constructor(email: string, name: string, nickname: string, 
     picture: string, emailVerified: boolean, givenName: string, familyName: string, 
-    isAuthUser: boolean, links: [string]) {
+    isAuthUser: boolean, ) {
 
     this.email = email
     this.name = name  
@@ -301,9 +297,7 @@ export class User implements UsersType {
     this.emailVerified = emailVerified
     this.givenName = givenName
     this.familyName = familyName
-    this.isAuthUser = isAuthUser
-
-    this.links = links
+    this.isAuthUser = isAuthUser 
   }
 }
 

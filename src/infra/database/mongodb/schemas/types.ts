@@ -64,7 +64,6 @@ export type UsersType = {
   emailVerified: boolean
   givenName: string
   familyName: string
-  isAuthUser: boolean 
-  links: string[]
+  isAuthUser: boolean   
 };
 

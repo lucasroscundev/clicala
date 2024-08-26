@@ -1,11 +1,12 @@
 import { ApiProperty, OmitType, PartialType } from "@nestjs/swagger";
 import { LinksType } from "../schemas/types";
-import { IsBoolean, IsEmail } from "class-validator";
+import { IsAlphanumeric, IsBoolean, IsEmail, IsString } from "class-validator";
 
 export class UserDTO {
   @ApiProperty({
   example: 'John Doe XXX',    
   })
+  @IsString()
   name: string
   
   @ApiProperty({
@@ -17,11 +18,13 @@ export class UserDTO {
   @ApiProperty({
     example: 'JayD',
   })
+  @IsAlphanumeric()
   nickname: string
 
   @ApiProperty({
     example: 'uma foto do garfield',
   })
+  @IsString()
   picture: string
 
   @ApiProperty({
@@ -33,26 +36,25 @@ export class UserDTO {
   @ApiProperty({
     example: 'John T.',
   })
+  @IsString()
   givenName: string
 
   @ApiProperty({
     example: 'Doe',
   })
+  @IsString()
   familyName: string
 
   @ApiProperty({
     example: true,
   })
+  @IsBoolean()
   isAuthUser: boolean
 
-  @ApiProperty({
-    example: "3d7fc2f7-2405-4c40-b924-b4345212dbf0"
-  })
-  links: string[]
 
   constructor(email: string, name: string, nickname: string, 
     picture: string, emailVerified: boolean, givenName: string, 
-    familyName: string, isAuthUser: boolean, links: string[]) {
+    familyName: string, isAuthUser: boolean, ) {
     this.email = email
     this.name = name
     this.nickname = nickname
@@ -61,11 +63,9 @@ export class UserDTO {
     this.givenName = givenName
     this.familyName = familyName
     this.isAuthUser = isAuthUser
-    this.links = links
-
   }
 }
 
-export class LoginUserDTO extends OmitType(UserDTO, ['links'] as const) {}
+export class LoginUserDTO extends UserDTO {}
 
 export class UpdateUserDTO extends PartialType(UserDTO) {}

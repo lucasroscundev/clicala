@@ -27,6 +27,7 @@ export class LoginUserController {
   @Post()
   @HttpCode(201)
   @ApiCreatedResponse({ type: UserDTO })
+  
   async create(@Body() loginUserDto: LoginUserDTO,
     ) {
     const result = await this.usersService.create(loginUserDto) 
