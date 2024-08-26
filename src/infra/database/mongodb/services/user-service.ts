@@ -48,4 +48,8 @@ export class UsersService {
   async remove(id: string) {
     await this.userModel.deleteOne({_id: id}) 
   }
+
+  async findByNickname(nickname: string) {
+    return this.userModel.findOne({nickname: nickname})
+  }
 }

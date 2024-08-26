@@ -4,6 +4,8 @@ import {
   Delete,
   Get,
   HttpCode,
+  HttpException,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -30,9 +32,21 @@ export class LoginUserController {
   
   async create(@Body() loginUserDto: LoginUserDTO,
     ) {
-    const result = await this.usersService.create(loginUserDto) 
 
-    return result
+    const nicknameTaken = await this.usersService.findByNickname(loginUserDto.nickname)
+    
+    if (nicknameTaken != null) {
+      throw new HttpException({
+        status: HttpStatus.CONFLICT,
+        error: 'Esse nickname já foi utilizado'
+      }, HttpStatus.CONFLICT, );
+    } else {
+      const result = await this.usersService.create(loginUserDto) 
+
+      return result
+    }
+
+    
   }
 /*
   @Get()
